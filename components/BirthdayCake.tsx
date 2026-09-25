@@ -55,7 +55,7 @@ export default function BirthdayCake({ birthdayName }: BirthdayCakeProps) {
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30" />
 
             {/* Glowing Candles Flame Overlay */}
-            <div className="absolute top-8 inset-x-0 flex justify-center gap-8 z-20">
+            <div className="absolute top-4 inset-x-0 flex justify-center gap-8 z-20">
               {[1, 2, 3].map((candleIndex) => (
                 <div key={candleIndex} className="flex flex-col items-center">
                   {!candlesBlown ? (

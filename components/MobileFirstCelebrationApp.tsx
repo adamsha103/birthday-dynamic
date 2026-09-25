@@ -827,7 +827,7 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10 pointer-events-none" />
 
                 {/* Candles positioned directly on top surface of clean cake tier */}
-                <div className="absolute top-[16%] inset-x-0 flex justify-center gap-4 sm:gap-6 z-20 pointer-events-auto">
+                <div className="absolute top-[6%] inset-x-0 flex justify-center gap-4 sm:gap-6 z-20 pointer-events-auto">
                   {[1, 2, 3].map((i) => (
                     <div key={i} className="flex flex-col items-center group/candle hover:scale-110 transition-transform">
                       {!candlesBlown ? (
