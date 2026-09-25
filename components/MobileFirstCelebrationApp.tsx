@@ -674,55 +674,56 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
               initial="initial"
               animate="animate"
               exit="exit"
-              className="bg-white/95 backdrop-blur-2xl rounded-2xl p-4 sm:p-5 text-center border border-rose-200/80 shadow-2xl relative overflow-hidden my-auto shrink-0"
+              className="bg-white/95 backdrop-blur-2xl rounded-2xl p-3.5 sm:p-4.5 text-center border border-rose-200/80 shadow-2xl relative overflow-hidden my-auto shrink-0"
             >
-              {/* LOVE TO YOU ❤️ Heart Symbol Badge */}
-              <div 
-                onClick={(e) => triggerHeartBlow(e)}
-                className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-gradient-to-r from-rose-600 via-pink-500 to-rose-500 text-white text-[10px] font-black mb-2 shadow-md border border-rose-300 animate-bounce cursor-pointer hover:scale-105 transition"
-              >
-                <Heart className="w-3.5 h-3.5 fill-white text-white animate-pulse" />
-                <span>LOVE TO YOU ❤️</span>
-                <Sparkles className="w-3 h-3 text-amber-200 animate-spin-slow" />
-              </div>
-
-              <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-rose-100 border border-rose-300 text-rose-800 text-[9.5px] font-extrabold mb-3 shadow-sm block w-fit mx-auto">
-                <Sparkles className="w-3 h-3 text-amber-500 animate-spin-slow" />
-                <span>YOU ARE CORDIALLY INVITED</span>
-              </div>
-
-              <div className="relative w-24 h-24 sm:w-28 sm:h-28 mx-auto mb-3 group">
-                <div className="absolute -inset-2 rounded-full bg-gradient-to-r from-rose-400 via-pink-400 to-amber-300 opacity-80 blur-md animate-pulse" />
-                <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-white shadow-xl">
-                  <Image src={birthday.profileImage} alt={birthday.name} fill sizes="112px" priority className="object-cover" />
+              {/* Top Badges Row */}
+              <div className="flex items-center justify-center gap-1.5 mb-2 flex-wrap">
+                <div 
+                  onClick={(e) => triggerHeartBlow(e)}
+                  className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-gradient-to-r from-rose-600 via-pink-500 to-rose-500 text-white text-[9.5px] font-black shadow-sm border border-rose-300 animate-bounce cursor-pointer hover:scale-105 transition"
+                >
+                  <Heart className="w-3 h-3 fill-white text-white animate-pulse" />
+                  <span>LOVE TO YOU ❤️</span>
                 </div>
-                <div className="absolute -top-1 -right-1 w-7 h-7 rounded-full bg-gradient-to-tr from-amber-400 to-amber-200 flex items-center justify-center text-sm shadow-md">
+
+                <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-rose-100 border border-rose-300 text-rose-800 text-[9px] font-extrabold shadow-sm">
+                  <Sparkles className="w-2.5 h-2.5 text-amber-500 animate-spin-slow" />
+                  <span>CORDIALLY INVITED</span>
+                </div>
+              </div>
+
+              <div className="relative w-20 h-20 sm:w-24 sm:h-24 mx-auto mb-2 group">
+                <div className="absolute -inset-1.5 rounded-full bg-gradient-to-r from-rose-400 via-pink-400 to-amber-300 opacity-80 blur-md animate-pulse" />
+                <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-white shadow-xl">
+                  <Image src={birthday.profileImage} alt={birthday.name} fill sizes="96px" priority className="object-cover" />
+                </div>
+                <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-gradient-to-tr from-amber-400 to-amber-200 flex items-center justify-center text-xs shadow-md">
                   👑
                 </div>
               </div>
 
-              <h1 className="text-xl sm:text-2xl font-black text-[#881337] mb-1 tracking-tight">
+              <h1 className="text-lg sm:text-xl font-black text-[#881337] mb-0.5 tracking-tight">
                 Happy Birthday <br />
                 <span className="text-gradient drop-shadow-sm">{birthday.name}</span> 🎉
               </h1>
 
-              <p className="text-rose-900 font-serif italic text-xs mb-2 leading-tight max-w-[260px] mx-auto">
+              <p className="text-rose-900 font-serif italic text-[11px] mb-1 leading-tight max-w-[250px] mx-auto">
                 "{birthday.headline}"
               </p>
 
-              <p className="text-[11px] text-rose-800/80 mb-3 max-w-[260px] mx-auto leading-snug">
+              <p className="text-[10.5px] text-rose-800/80 mb-2 max-w-[250px] mx-auto leading-snug">
                 {birthday.description}
               </p>
 
-              {/* Direct Birthday Date Display: OCTOBER 05, 2026 */}
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-white/90 border border-rose-300 text-rose-900 text-[11px] font-black shadow-sm mb-4">
-                <Calendar className="w-3.5 h-3.5 text-rose-600" />
+              {/* Direct Birthday Date Display */}
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-xl bg-white/90 border border-rose-300 text-rose-900 text-[10px] font-black shadow-sm mb-2.5">
+                <Calendar className="w-3 h-3 text-rose-600" />
                 <span>October 05, 2026</span>
               </div>
 
               <button
                 onClick={handleStartJourney}
-                className="w-full py-2.5 rounded-xl bg-gradient-to-r from-rose-500 via-pink-500 to-rose-600 text-white font-black text-xs shadow-lg hover:scale-105 active:scale-95 transition flex items-center justify-center gap-1.5"
+                className="w-full py-2 rounded-xl bg-gradient-to-r from-rose-500 via-pink-500 to-rose-600 text-white font-black text-xs shadow-lg hover:scale-105 active:scale-95 transition flex items-center justify-center gap-1.5"
               >
                 <span>🎂 Slide 2: Blow Candles (Start)</span>
                 <ChevronRight className="w-4 h-4" />
@@ -739,39 +740,47 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
               initial="initial"
               animate="animate"
               exit="exit"
-              className="bg-white/95 backdrop-blur-2xl rounded-2xl p-4 sm:p-5 text-center border border-rose-200/80 shadow-2xl relative overflow-hidden my-auto shrink-0"
+              className="bg-white/95 backdrop-blur-2xl rounded-2xl p-3.5 sm:p-4.5 text-center border border-rose-200/80 shadow-2xl relative overflow-hidden my-auto shrink-0"
             >
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-100 border border-rose-300 text-rose-800 text-[10px] font-extrabold mb-3 shadow-sm">
-                <Cake className="w-3.5 h-3.5 text-amber-500" />
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-rose-100 border border-rose-300 text-rose-800 text-[9.5px] font-extrabold mb-1.5 shadow-sm">
+                <Cake className="w-3 h-3 text-amber-500" />
                 <span>SURPRISE EVENT #1</span>
               </div>
 
-              <h2 className="text-xl sm:text-2xl font-black text-[#881337] mb-1">
+              <h2 className="text-lg sm:text-xl font-black text-[#881337] mb-0.5">
                 Make A Wish & Blow Candles! 🎂
               </h2>
-              <p className="text-[11px] text-rose-800/90 mb-3 font-semibold">
+              <p className="text-[10.5px] text-rose-800/90 mb-2 font-semibold">
                 {!candlesBlown ? '⚠️ Tap candles to blow flame to unlock next slide!' : '✨ Flames Extinguished! Next slide unlocked!'}
               </p>
 
-              <div className="relative w-full aspect-[16/10] max-h-44 rounded-xl overflow-hidden border border-white mb-3 shadow-lg cursor-pointer" onClick={handleBlowCandles}>
-                <Image src="/images/rose_birthday_cake.png" alt="Rose Birthday Cake" fill sizes="(max-width: 640px) 384px, 450px" className="object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
+              <div className="relative w-full aspect-[16/10] max-h-40 sm:max-h-44 rounded-xl overflow-hidden border border-rose-200/60 mb-2.5 shadow-lg cursor-pointer bg-gradient-to-b from-rose-950/20 to-black/60 group" onClick={handleBlowCandles}>
+                <Image src="/images/rose_birthday_cake.png" alt="Rose Birthday Cake" fill sizes="(max-width: 640px) 384px, 450px" className="object-cover object-center transition-transform duration-500 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/10 pointer-events-none" />
 
-                <div className="absolute top-4 inset-x-0 flex justify-center gap-5 z-20">
+                {/* Candles aligned directly on top tier */}
+                <div className="absolute bottom-[24%] inset-x-0 flex justify-center gap-5 z-20 pointer-events-auto">
                   {[1, 2, 3].map((i) => (
-                    <div key={i} className="flex flex-col items-center">
+                    <div key={i} className="flex flex-col items-center group/candle hover:scale-110 transition-transform">
                       {!candlesBlown ? (
                         <motion.div
-                          animate={{ scale: [1, 1.2, 1], rotate: [-2, 2, -2] }}
-                          transition={{ repeat: Infinity, duration: 1 + i * 0.2 }}
-                          className="w-3.5 h-6 rounded-full bg-gradient-to-t from-amber-500 via-rose-300 to-white shadow-[0_0_12px_#f43f5e] animate-flicker flex items-center justify-center mb-0.5"
+                          animate={{ scale: [1, 1.25, 1], rotate: [-4, 4, -4] }}
+                          transition={{ repeat: Infinity, duration: 0.8 + i * 0.15 }}
+                          className="w-3.5 h-5 rounded-full bg-gradient-to-t from-amber-500 via-rose-300 to-white shadow-[0_0_14px_#f43f5e] animate-flicker flex items-center justify-center mb-0.5"
                         >
-                          <Flame className="w-2.5 h-2.5 text-amber-200 fill-amber-200" />
+                          <Flame className="w-2.5 h-2.5 text-amber-100 fill-amber-200 drop-shadow" />
                         </motion.div>
                       ) : (
-                        <div className="text-[10px] text-white font-bold mb-0.5">💨</div>
+                        <motion.div
+                          initial={{ opacity: 1, y: 0 }}
+                          animate={{ opacity: 0, y: -10 }}
+                          transition={{ duration: 1 }}
+                          className="text-xs font-bold text-gray-300 mb-0.5"
+                        >
+                          💨
+                        </motion.div>
                       )}
-                      <div className="w-1.5 h-5 bg-amber-300 rounded-t-sm shadow-md" />
+                      <div className="w-1.5 h-6 bg-gradient-to-b from-amber-200 via-rose-200 to-pink-300 rounded-t-sm shadow-md border border-white/40" />
                     </div>
                   ))}
                 </div>
@@ -780,14 +789,14 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
               {!candlesBlown ? (
                 <button
                   onClick={handleBlowCandles}
-                  className="w-full py-2.5 rounded-xl bg-gradient-to-r from-amber-500 via-rose-500 to-pink-500 text-white font-black text-xs shadow-lg hover:scale-105 active:scale-95 transition flex items-center justify-center gap-1.5"
+                  className="w-full py-2 rounded-xl bg-gradient-to-r from-amber-500 via-rose-500 to-pink-500 text-white font-black text-xs shadow-lg hover:scale-105 active:scale-95 transition flex items-center justify-center gap-1.5"
                 >
                   <Flame className="w-3.5 h-3.5 text-amber-200" />
                   <span>🎂 Tap To Blow Candles First</span>
                 </button>
               ) : (
-                <div className="space-y-2">
-                  <div className="p-2 rounded-xl bg-rose-100 border border-rose-300 text-[11px] font-bold text-rose-900">
+                <div className="space-y-1.5">
+                  <div className="p-1.5 rounded-xl bg-rose-100 border border-rose-300 text-[10.5px] font-bold text-rose-900">
                     ✨ Wish Sent To The Stars! Next Slide Unlocked 🎉
                   </div>
                   <button
@@ -796,7 +805,7 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
                       setCurrentSlide(2)
                       triggerConfetti({ particleCount: 40, spread: 45 })
                     }}
-                    className="w-full py-2.5 rounded-xl bg-gradient-to-r from-rose-500 via-pink-500 to-rose-600 text-white font-black text-xs shadow-lg hover:scale-105 transition flex items-center justify-center gap-1.5"
+                    className="w-full py-2 rounded-xl bg-gradient-to-r from-rose-500 via-pink-500 to-rose-600 text-white font-black text-xs shadow-lg hover:scale-105 transition flex items-center justify-center gap-1.5"
                   >
                     <span>🎁 Slide 3: Unwrap Secret Gift</span>
                     <ChevronRight className="w-4 h-4" />
@@ -815,39 +824,39 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
               initial="initial"
               animate="animate"
               exit="exit"
-              className="bg-white/95 backdrop-blur-2xl rounded-2xl p-4 sm:p-5 text-center border border-rose-200/80 shadow-2xl relative overflow-hidden my-auto shrink-0"
+              className="bg-white/95 backdrop-blur-2xl rounded-2xl p-3.5 sm:p-4.5 text-center border border-rose-200/80 shadow-2xl relative overflow-hidden my-auto shrink-0"
             >
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-100 border border-pink-300 text-rose-800 text-[10px] font-extrabold mb-3 shadow-sm">
-                <Gift className="w-3.5 h-3.5 text-pink-600" />
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-pink-100 border border-pink-300 text-rose-800 text-[9.5px] font-extrabold mb-1.5 shadow-sm">
+                <Gift className="w-3 h-3 text-pink-600" />
                 <span>SURPRISE EVENT #2</span>
               </div>
 
-              <h2 className="text-xl sm:text-2xl font-black text-[#881337] mb-1">
+              <h2 className="text-lg sm:text-xl font-black text-[#881337] mb-0.5">
                 Unwrap Secret Gift! 🎁
               </h2>
-              <p className="text-[11px] text-rose-800/90 mb-3 font-semibold">
+              <p className="text-[10.5px] text-rose-800/90 mb-2 font-semibold">
                 {!giftOpened ? '⚠️ Tap ribbon to unwrap & unlock next slide!' : '✨ Gift Unwrapped! Next slide unlocked!'}
               </p>
 
-              <div className="relative w-full aspect-[16/10] max-h-44 rounded-xl overflow-hidden border border-white mb-3 shadow-lg cursor-pointer" onClick={handleOpenGift}>
+              <div className="relative w-full aspect-[16/10] max-h-40 sm:max-h-44 rounded-xl overflow-hidden border border-white mb-2.5 shadow-lg cursor-pointer" onClick={handleOpenGift}>
                 <Image src="/images/rose_gift_box.png" alt="Rose Gift Box" fill sizes="(max-width: 640px) 384px, 450px" className="object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
 
                 {!giftOpened ? (
                   <div className="absolute inset-0 flex flex-col items-center justify-center p-3">
-                    <div className="w-12 h-12 rounded-full bg-white/80 border border-rose-300 backdrop-blur-md flex items-center justify-center text-2xl mb-1 animate-bounce shadow-md">
+                    <div className="w-10 h-10 rounded-full bg-white/80 border border-rose-300 backdrop-blur-md flex items-center justify-center text-xl mb-1 animate-bounce shadow-md">
                       🎁
                     </div>
-                    <span className="text-rose-900 font-extrabold text-[10px] bg-white/90 px-2.5 py-0.5 rounded-full border border-rose-200">
+                    <span className="text-rose-900 font-extrabold text-[9.5px] bg-white/90 px-2 py-0.5 rounded-full border border-rose-200">
                       Tap Ribbon To Unwrap
                     </span>
                   </div>
                 ) : (
-                  <div className="absolute inset-0 bg-white/95 backdrop-blur-md p-4 flex flex-col justify-center text-left">
-                    <span className="text-rose-700 font-extrabold text-[10px] uppercase mb-0.5">
+                  <div className="absolute inset-0 bg-white/95 backdrop-blur-md p-3.5 flex flex-col justify-center text-left">
+                    <span className="text-rose-700 font-extrabold text-[9.5px] uppercase mb-0.5">
                       💖 Secret Note:
                     </span>
-                    <p className="text-rose-950 text-[11px] italic font-serif leading-relaxed">
+                    <p className="text-rose-950 text-[10.5px] italic font-serif leading-relaxed">
                       "{birthday.personalMessage}"
                     </p>
                   </div>
@@ -857,7 +866,7 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
               {!giftOpened ? (
                 <button
                   onClick={handleOpenGift}
-                  className="w-full py-2.5 rounded-xl bg-gradient-to-r from-pink-500 via-rose-500 to-rose-600 text-white font-black text-xs shadow-lg hover:scale-105 transition"
+                  className="w-full py-2 rounded-xl bg-gradient-to-r from-pink-500 via-rose-500 to-rose-600 text-white font-black text-xs shadow-lg hover:scale-105 transition"
                 >
                   ✨ Unwrap Surprise Gift Box First
                 </button>
@@ -869,7 +878,7 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
                     setCurrentSlide(3)
                     triggerConfetti({ particleCount: 40, spread: 45 })
                   }}
-                  className="w-full py-2.5 rounded-xl bg-gradient-to-r from-rose-500 via-pink-500 to-rose-600 text-white font-black text-xs shadow-lg hover:scale-105 transition flex items-center justify-center gap-1.5"
+                  className="w-full py-2 rounded-xl bg-gradient-to-r from-rose-500 via-pink-500 to-rose-600 text-white font-black text-xs shadow-lg hover:scale-105 transition flex items-center justify-center gap-1.5"
                 >
                   <span>📸 Slide 4: Photo Memories</span>
                   <ChevronRight className="w-4 h-4" />
@@ -887,52 +896,52 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
               initial="initial"
               animate="animate"
               exit="exit"
-              className="bg-white/95 backdrop-blur-2xl rounded-2xl p-4 sm:p-5 text-center border border-rose-200/80 shadow-2xl relative overflow-hidden my-auto shrink-0"
+              className="bg-white/95 backdrop-blur-2xl rounded-2xl p-3.5 sm:p-4.5 text-center border border-rose-200/80 shadow-2xl relative overflow-hidden my-auto shrink-0"
             >
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-100 border border-purple-300 text-rose-800 text-[10px] font-extrabold mb-3 shadow-sm">
-                <Camera className="w-3.5 h-3.5 text-purple-600" />
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-purple-100 border border-purple-300 text-rose-800 text-[9.5px] font-extrabold mb-1.5 shadow-sm">
+                <Camera className="w-3 h-3 text-purple-600" />
                 <span>SURPRISE EVENT #3</span>
               </div>
 
-              <h2 className="text-xl sm:text-2xl font-black text-[#881337] mb-1">
+              <h2 className="text-lg sm:text-xl font-black text-[#881337] mb-0.5">
                 Photo Memories Vault 📸
               </h2>
-              <p className="text-[11px] text-rose-800/90 mb-3">
+              <p className="text-[10.5px] text-rose-800/90 mb-2">
                 Tap photo thumbnails to explore!
               </p>
 
-              <div className="relative w-full aspect-[16/10] max-h-48 rounded-xl overflow-hidden border-2 border-white mb-2 shadow-md cursor-pointer group" onClick={() => setSelectedPhotoModal(memoriesList[activeMemoryIdx])}>
+              <div className="relative w-full aspect-[16/10] max-h-40 sm:max-h-44 rounded-xl overflow-hidden border-2 border-white mb-2 shadow-md cursor-pointer group" onClick={() => setSelectedPhotoModal(memoriesList[activeMemoryIdx])}>
                 <Image src={memoriesList[activeMemoryIdx]?.imageUrl} alt={memoriesList[activeMemoryIdx]?.title || 'Memory'} fill sizes="(max-width: 640px) 384px, 450px" className="object-cover transition-transform duration-300 group-hover:scale-105" />
-                <div className="absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-black/80 via-black/30 to-transparent pointer-events-none" />
+                <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-black/80 via-black/30 to-transparent pointer-events-none" />
 
                 <div className="absolute bottom-1.5 inset-x-2 text-left text-white drop-shadow-md z-10 flex items-end justify-between">
                   <div className="pr-2">
-                    <h4 className="font-extrabold text-white text-[11px] leading-tight">{memoriesList[activeMemoryIdx]?.title}</h4>
-                    <p className="text-[9.5px] text-rose-100/90 line-clamp-1 font-medium">{memoriesList[activeMemoryIdx]?.description}</p>
+                    <h4 className="font-extrabold text-white text-[10.5px] leading-tight">{memoriesList[activeMemoryIdx]?.title}</h4>
+                    <p className="text-[9px] text-rose-100/90 line-clamp-1 font-medium">{memoriesList[activeMemoryIdx]?.description}</p>
                   </div>
-                  <span className="shrink-0 bg-white/20 backdrop-blur-md px-1.5 py-0.5 rounded text-[8.5px] font-bold text-white border border-white/30">
+                  <span className="shrink-0 bg-white/20 backdrop-blur-md px-1.5 py-0.5 rounded text-[8px] font-bold text-white border border-white/30">
                     Enlarge 🔍
                   </span>
                 </div>
               </div>
 
-              <div className="flex justify-center gap-1.5 mb-3">
+              <div className="flex justify-center gap-1.5 mb-2.5">
                 {memoriesList.map((m, idx) => (
                   <button
                     key={idx}
                     onClick={() => setActiveMemoryIdx(idx)}
-                    className={`relative w-11 h-11 rounded-lg overflow-hidden border-2 transition ${
+                    className={`relative w-10 h-10 rounded-lg overflow-hidden border-2 transition ${
                       activeMemoryIdx === idx ? 'border-rose-500 scale-105 shadow-md ring-2 ring-rose-400/50' : 'border-white/80 opacity-70 hover:opacity-100'
                     }`}
                   >
-                    <Image src={m.imageUrl} alt="Thumb" fill sizes="44px" className="object-cover" />
+                    <Image src={m.imageUrl} alt="Thumb" fill sizes="40px" className="object-cover" />
                   </button>
                 ))}
               </div>
 
               <button
                 onClick={handleNextSlide}
-                className="w-full py-2.5 rounded-xl bg-gradient-to-r from-rose-500 via-pink-500 to-rose-600 text-white font-black text-xs shadow-lg hover:scale-105 transition flex items-center justify-center gap-1.5"
+                className="w-full py-2 rounded-xl bg-gradient-to-r from-rose-500 via-pink-500 to-rose-600 text-white font-black text-xs shadow-lg hover:scale-105 transition flex items-center justify-center gap-1.5"
               >
                 <span>🌟 Slide 5: Life Journey & Video</span>
                 <ChevronRight className="w-4 h-4" />
@@ -949,23 +958,23 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
               initial="initial"
               animate="animate"
               exit="exit"
-              className="bg-white/95 backdrop-blur-2xl rounded-2xl p-4 sm:p-5 text-center border border-rose-200/80 shadow-2xl relative overflow-hidden my-auto shrink-0"
+              className="bg-white/95 backdrop-blur-2xl rounded-2xl p-3.5 sm:p-4.5 text-center border border-rose-200/80 shadow-2xl relative overflow-hidden my-auto shrink-0"
             >
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 border border-amber-300 text-rose-800 text-[10px] font-extrabold mb-3 shadow-sm">
-                <Star className="w-3.5 h-3.5 text-amber-600" />
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-100 border border-amber-300 text-rose-800 text-[9.5px] font-extrabold mb-1.5 shadow-sm">
+                <Star className="w-3 h-3 text-amber-600" />
                 <span>FINALE & VIDEO EXPORT</span>
               </div>
 
-              <h2 className="text-xl sm:text-2xl font-black text-[#881337] mb-1">
+              <h2 className="text-lg sm:text-xl font-black text-[#881337] mb-1">
                 Life Journey & Video 🌟
               </h2>
 
-              <div className="flex justify-center gap-1.5 mb-3 overflow-x-auto py-0.5">
+              <div className="flex justify-center gap-1.5 mb-2 overflow-x-auto py-0.5">
                 {timelineEvents.map((t, idx) => (
                   <button
                     key={idx}
                     onClick={() => setActiveTimelineIdx(idx)}
-                    className={`px-2.5 py-1 rounded-lg text-[10px] font-black transition ${
+                    className={`px-2 py-0.5 rounded-lg text-[9.5px] font-black transition ${
                       activeTimelineIdx === idx
                         ? 'bg-gradient-to-r from-rose-500 to-amber-500 text-white shadow-md scale-105'
                         : 'bg-white/80 text-rose-900 border border-rose-200'
@@ -976,33 +985,33 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
                 ))}
               </div>
 
-              <div className="bg-rose-50/90 backdrop-blur-md p-3.5 rounded-2xl border border-rose-200 shadow-sm text-left mb-4">
-                <div className="text-rose-700 font-extrabold text-[10px] tracking-wider uppercase mb-0.5">
+              <div className="bg-rose-50/90 backdrop-blur-md p-3 rounded-xl border border-rose-200 shadow-sm text-left mb-3">
+                <div className="text-rose-700 font-extrabold text-[9.5px] tracking-wider uppercase mb-0.5">
                   YEAR {timelineEvents[activeTimelineIdx]?.year}
                 </div>
-                <h4 className="text-xs font-black text-rose-950 mb-1">
+                <h4 className="text-[11px] font-black text-rose-950 mb-0.5">
                   {timelineEvents[activeTimelineIdx]?.title}
                 </h4>
-                <p className="text-[11px] text-rose-900 font-medium leading-relaxed">
+                <p className="text-[10.5px] text-rose-900 font-medium leading-relaxed">
                   {timelineEvents[activeTimelineIdx]?.description}
                 </p>
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-1.5">
                 <button
                   onClick={handleDownloadVideo}
                   disabled={isGeneratingVideo}
-                  className="w-full py-2.5 rounded-xl bg-gradient-to-r from-rose-500 via-pink-500 to-amber-500 text-white font-black text-xs shadow-lg hover:scale-105 transition flex items-center justify-center gap-1.5 disabled:opacity-60"
+                  className="w-full py-2 rounded-xl bg-gradient-to-r from-rose-500 via-pink-500 to-amber-500 text-white font-black text-xs shadow-lg hover:scale-105 transition flex items-center justify-center gap-1.5 disabled:opacity-60"
                 >
-                  <Video className="w-4 h-4 text-amber-200" />
+                  <Video className="w-3.5 h-3.5 text-amber-200" />
                   <span>{isGeneratingVideo ? 'Generating Celebration Video...' : '📹 Download Celebration Reel/Video'}</span>
                 </button>
 
                 <button
                   onClick={() => { setDirection('prev'); setCurrentSlide(0); }}
-                  className="w-full py-2 rounded-xl bg-white/90 border border-rose-200 text-rose-900 font-extrabold text-[11px] hover:bg-white transition flex items-center justify-center gap-1 shadow-sm"
+                  className="w-full py-1.5 rounded-xl bg-white/90 border border-rose-200 text-rose-900 font-extrabold text-[10.5px] hover:bg-white transition flex items-center justify-center gap-1 shadow-sm"
                 >
-                  <RefreshCw className="w-3.5 h-3.5 text-rose-600" />
+                  <RefreshCw className="w-3 h-3 text-rose-600" />
                   <span>Replay Celebration Slides</span>
                 </button>
               </div>
