@@ -172,15 +172,26 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
   const handleDownloadVideo = async () => {
     setIsGeneratingVideo(true)
     try {
-      // 1. Helper function to preload images
+      // 1. Helper function to preload images (with CORS fallback)
       const loadImg = (url: string): Promise<HTMLImageElement | null> => {
         return new Promise((resolve) => {
           if (!url) return resolve(null)
           const img = new window.Image()
-          img.crossOrigin = 'anonymous'
+          if (url.startsWith('http://') || url.startsWith('https://')) {
+            img.crossOrigin = 'anonymous'
+          }
           img.src = url
           img.onload = () => resolve(img)
-          img.onerror = () => resolve(null)
+          img.onerror = () => {
+            if (img.crossOrigin) {
+              const retryImg = new window.Image()
+              retryImg.src = url
+              retryImg.onload = () => resolve(retryImg)
+              retryImg.onerror = () => resolve(null)
+            } else {
+              resolve(null)
+            }
+          }
         })
       }
 
@@ -344,55 +355,68 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
           ctx.shadowColor = 'rgba(244, 63, 94, 0.25)'
           ctx.shadowBlur = 30
           ctx.beginPath()
-          ctx.roundRect(60, 120, 600, 1040, 36)
+          ctx.roundRect(60, 100, 600, 1080, 36)
           ctx.fill()
           ctx.shadowBlur = 0
 
-          // Top Crown
-          ctx.font = '54px serif'
+          // Top Pill Badge: "LOVE TO YOU ❤️"
+          ctx.fillStyle = '#f43f5e'
+          ctx.beginPath()
+          ctx.roundRect(230, 140, 260, 44, 22)
+          ctx.fill()
+          ctx.fillStyle = '#ffffff'
+          ctx.font = 'bold 18px sans-serif'
           ctx.textAlign = 'center'
-          ctx.fillText('👑', 360, 220)
+          ctx.fillText('LOVE TO YOU ❤️', 360, 168)
 
-          // Avatar Image Frame (Circular Gold Border)
+          // Avatar Image Frame (Circular Gold Border) centered at (360, 340)
+          const avatarCy = 340
+          const avatarR = 95
+
+          // Crown Emoji sitting directly on top rim of avatar ring
+          ctx.font = '46px serif'
+          ctx.textAlign = 'center'
+          ctx.fillText('👑', 360, avatarCy - avatarR - 5)
+
           if (profileImg) {
             ctx.save()
             ctx.beginPath()
-            ctx.arc(360, 360, 100, 0, Math.PI * 2)
+            ctx.arc(360, avatarCy, avatarR, 0, Math.PI * 2)
             ctx.clip()
-            ctx.drawImage(profileImg, 260, 260, 200, 200)
+            ctx.drawImage(profileImg, 360 - avatarR, avatarCy - avatarR, avatarR * 2, avatarR * 2)
             ctx.restore()
 
             // Gold Outer Ring
             ctx.strokeStyle = '#f59e0b'
             ctx.lineWidth = 6
             ctx.beginPath()
-            ctx.arc(360, 360, 103, 0, Math.PI * 2)
+            ctx.arc(360, avatarCy, avatarR + 3, 0, Math.PI * 2)
             ctx.stroke()
           }
 
           // Title Text
           ctx.fillStyle = '#881337'
-          ctx.font = 'bold 44px sans-serif'
-          ctx.fillText(`Happy Birthday ${birthday.name}! 🎉`, 360, 520)
+          ctx.font = 'bold 40px sans-serif'
+          ctx.fillText(`Happy Birthday ${birthday.name}! 🎉`, 360, 485)
 
-          // Headline
+          // Headline Sentence Text
           ctx.fillStyle = '#9f1239'
-          ctx.font = 'italic 26px serif'
-          ctx.fillText(`"${birthday.headline}"`, 360, 580)
+          ctx.font = 'italic 24px serif'
+          ctx.fillText(`"${birthday.headline}"`, 360, 545)
 
           // Date Badge
           ctx.fillStyle = '#f43f5e'
           ctx.beginPath()
-          ctx.roundRect(210, 640, 300, 60, 30)
+          ctx.roundRect(210, 590, 300, 50, 25)
           ctx.fill()
           ctx.fillStyle = '#ffffff'
-          ctx.font = 'bold 24px sans-serif'
-          ctx.fillText('October 05, 2026', 360, 678)
+          ctx.font = 'bold 22px sans-serif'
+          ctx.fillText('October 05, 2026', 360, 622)
 
-          // Subtitle Note
+          // Subtitle Queen Freedom Greeting Note
           ctx.fillStyle = '#be123c'
           ctx.font = '600 22px sans-serif'
-          ctx.fillText('✨ A Special Day For An Extraordinary Soul ✨', 360, 760)
+          ctx.fillText('✨ Queen Freedom • A Special Celebration ✨', 360, 700)
 
           ctx.restore()
         }
@@ -409,7 +433,7 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
           ctx.shadowColor = 'rgba(244, 63, 94, 0.25)'
           ctx.shadowBlur = 30
           ctx.beginPath()
-          ctx.roundRect(60, 120, 600, 1040, 36)
+          ctx.roundRect(60, 100, 600, 1080, 36)
           ctx.fill()
           ctx.shadowBlur = 0
 
@@ -417,36 +441,51 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
           ctx.fillStyle = '#881337'
           ctx.font = 'bold 36px sans-serif'
           ctx.textAlign = 'center'
-          ctx.fillText('📸 Cherished Photo Memories', 360, 200)
+          ctx.fillText('📸 Cherished Photo Memories', 360, 165)
 
-          // Polaroid Memory Image 1
+          // Polaroid Memory Image Showcase
           const targetImg = (frame < 135 ? memoryImg1 : memoryImg2) || profileImg
+          ctx.save()
+          ctx.fillStyle = '#ffffff'
+          ctx.shadowColor = 'rgba(0, 0, 0, 0.15)'
+          ctx.shadowBlur = 20
+          ctx.beginPath()
+          ctx.roundRect(110, 210, 500, 540, 24)
+          ctx.fill()
+          ctx.shadowBlur = 0
+
           if (targetImg) {
-            ctx.save()
-            ctx.fillStyle = '#ffffff'
-            ctx.shadowColor = 'rgba(0, 0, 0, 0.15)'
-            ctx.shadowBlur = 20
             ctx.beginPath()
-            ctx.roundRect(110, 240, 500, 500, 24)
-            ctx.fill()
-            ctx.shadowBlur = 0
-
-            ctx.beginPath()
-            ctx.roundRect(130, 260, 460, 380, 16)
+            ctx.roundRect(130, 230, 460, 410, 16)
             ctx.clip()
-            ctx.drawImage(targetImg, 130, 260, 460, 380)
-            ctx.restore()
+            ctx.drawImage(targetImg, 130, 230, 460, 410)
+          } else {
+            // Soft placeholder gradient if loading
+            const placeholderGrad = ctx.createLinearGradient(130, 230, 590, 640)
+            placeholderGrad.addColorStop(0, '#fbcfe8')
+            placeholderGrad.addColorStop(1, '#fecdd3')
+            ctx.fillStyle = placeholderGrad
+            ctx.beginPath()
+            ctx.roundRect(130, 230, 460, 410, 16)
+            ctx.fill()
           }
+          ctx.restore()
 
-          // Memory Title
+          // Memory Title inside polaroid bottom
           ctx.fillStyle = '#881337'
-          ctx.font = 'bold 28px sans-serif'
-          ctx.fillText(memoriesList[frame < 135 ? 0 : 1]?.title || 'Romantic Celebration', 360, 800)
+          ctx.font = 'bold 26px sans-serif'
+          ctx.textAlign = 'center'
+          ctx.fillText(memoriesList[frame < 135 ? 0 : 1]?.title || 'Romantic Celebration', 360, 690)
 
           // Memory Description
           ctx.fillStyle = '#9f1239'
           ctx.font = 'italic 22px serif'
-          ctx.fillText(memoriesList[frame < 135 ? 0 : 1]?.description || 'Unforgettable moments of love & joy', 360, 845)
+          ctx.fillText(memoriesList[frame < 135 ? 0 : 1]?.description || 'Unforgettable moments of love & joy', 360, 795)
+
+          // Queen Freedom Tag
+          ctx.fillStyle = '#be123c'
+          ctx.font = 'bold 20px sans-serif'
+          ctx.fillText('✨ Queen Freedom • Cherished Moments ✨', 360, 860)
 
           ctx.restore()
         }
@@ -464,7 +503,7 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
           }
 
           // Draw fireworks particles
-          fireworksParticles.forEach((p, idx) => {
+          fireworksParticles.forEach((p) => {
             p.x += p.vx
             p.y += p.vy
             p.vy += 0.15 // Gravity
@@ -486,43 +525,72 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
           ctx.shadowColor = 'rgba(244, 63, 94, 0.25)'
           ctx.shadowBlur = 30
           ctx.beginPath()
-          ctx.roundRect(60, 400, 600, 720, 36)
+          ctx.roundRect(60, 100, 600, 1080, 36)
           ctx.fill()
           ctx.shadowBlur = 0
 
           // Finale Header
           ctx.fillStyle = '#881337'
-          ctx.font = 'bold 42px sans-serif'
+          ctx.font = 'bold 38px sans-serif'
           ctx.textAlign = 'center'
-          ctx.fillText('🌟 Happy Birthday Nabesha! 🌟', 360, 480)
+          ctx.fillText(`🌟 Happy Birthday ${birthday.name}! 🌟`, 360, 175)
 
-          // Personal Note Card
+          // Avatar thumbnail header inside Wish Card
+          const thumbCy = 270
+          const thumbR = 50
+          ctx.font = '32px serif'
+          ctx.fillText('👑', 360, thumbCy - thumbR - 3)
+
+          if (profileImg) {
+            ctx.save()
+            ctx.beginPath()
+            ctx.arc(360, thumbCy, thumbR, 0, Math.PI * 2)
+            ctx.clip()
+            ctx.drawImage(profileImg, 360 - thumbR, thumbCy - thumbR, thumbR * 2, thumbR * 2)
+            ctx.restore()
+
+            ctx.strokeStyle = '#f59e0b'
+            ctx.lineWidth = 4
+            ctx.beginPath()
+            ctx.arc(360, thumbCy, thumbR + 2, 0, Math.PI * 2)
+            ctx.stroke()
+          }
+
+          // Personal Wish Card
           ctx.fillStyle = '#fff1f2'
           ctx.strokeStyle = '#fda4af'
           ctx.lineWidth = 2
           ctx.beginPath()
-          ctx.roundRect(100, 530, 520, 400, 24)
+          ctx.roundRect(100, 340, 520, 530, 24)
           ctx.fill()
           ctx.stroke()
 
           ctx.fillStyle = '#881337'
-          ctx.font = 'bold 24px serif'
-          ctx.fillText(`"Dear ${birthday.name},`, 360, 590)
+          ctx.font = 'bold 26px serif'
+          ctx.fillText(`"Dear ${birthday.name},`, 360, 400)
 
           ctx.fillStyle = '#9f1239'
-          ctx.font = 'italic 20px serif'
-          ctx.fillText('May your year be filled with boundless joy,', 360, 640)
-          ctx.fillText('thrilling adventures, true happiness,', 360, 680)
-          ctx.fillText('and endless love!" ❤️', 360, 720)
+          ctx.font = 'italic 22px serif'
+          ctx.fillText('May your year be filled with boundless joy,', 360, 455)
+          ctx.fillText('thrilling adventures, true happiness,', 360, 500)
+          ctx.fillText('and endless love!" ❤️', 360, 545)
 
           ctx.fillStyle = '#be123c'
+          ctx.font = 'bold 24px sans-serif'
+          ctx.fillText('With Love & Warmest Wishes', 360, 620)
+
+          ctx.fillStyle = '#881337'
           ctx.font = 'bold 22px sans-serif'
-          ctx.fillText('With Love & Warmest Wishes', 360, 800)
+          ctx.fillText('👑 Queen Freedom Celebration 👑', 360, 700)
+
+          ctx.fillStyle = '#be123c'
+          ctx.font = '600 20px sans-serif'
+          ctx.fillText('✨ A Special Day For An Extraordinary Soul ✨', 360, 760)
 
           // Watermark Footer
           ctx.fillStyle = '#881337'
           ctx.font = '600 18px sans-serif'
-          ctx.fillText(`Created with Love for ${birthday.name} • 2026 Edition`, 360, 1050)
+          ctx.fillText(`Created with Love for ${birthday.name} • 2026 Edition`, 360, 1040)
 
           ctx.restore()
         }
@@ -580,14 +648,14 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
   }
 
   return (
-    <div className="relative min-h-screen h-[100dvh] max-h-[100dvh] bg-gradient-to-b from-[#fff1f2] via-[#ffe4e6] to-[#fecdd3] text-[#881337] flex flex-col justify-between items-center py-2 px-2 sm:px-4 overflow-hidden select-none">
+    <div className="relative min-h-screen h-[100dvh] max-h-[100dvh] bg-gradient-to-b from-[#fff1f2] via-[#ffe4e6] to-[#fecdd3] text-[#881337] flex flex-col justify-between items-center py-1 px-1.5 sm:py-2 sm:px-4 overflow-hidden select-none">
       
       {/* Background ambient lighting */}
       <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[450px] h-[450px] bg-rose-400/20 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-10 right-10 w-[300px] h-[300px] bg-pink-400/20 rounded-full blur-[100px] pointer-events-none" />
 
       {/* Top Compact Mobile App Header */}
-      <header className="w-full max-w-sm shrink-0 z-40 flex items-center justify-between px-1 pt-1 pb-1 gap-1">
+      <header className="w-full max-w-sm shrink-0 z-40 flex items-center justify-between px-1 py-0.5 gap-1">
         <div className="flex items-center gap-1.5 shrink-0">
           <div className="relative w-7 h-7 sm:w-8 sm:h-8 rounded-full p-[1.5px] bg-gradient-to-tr from-rose-500 via-pink-400 to-amber-400 shadow-sm shrink-0">
             <div className="relative w-full h-full rounded-full overflow-hidden border border-white">
@@ -674,49 +742,49 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
               initial="initial"
               animate="animate"
               exit="exit"
-              className="bg-white/95 backdrop-blur-2xl rounded-2xl p-3.5 sm:p-4.5 text-center border border-rose-200/80 shadow-2xl relative overflow-hidden my-auto shrink-0"
+              className="bg-white/95 backdrop-blur-2xl rounded-2xl p-3 sm:p-4 text-center border border-rose-200/80 shadow-2xl relative overflow-hidden my-auto shrink-0 max-h-full overflow-y-auto"
             >
               {/* Top Badges Row */}
-              <div className="flex items-center justify-center gap-1.5 mb-2 flex-wrap">
+              <div className="flex items-center justify-center gap-1.5 mb-1.5 flex-wrap">
                 <div 
                   onClick={(e) => triggerHeartBlow(e)}
-                  className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-gradient-to-r from-rose-600 via-pink-500 to-rose-500 text-white text-[9.5px] font-black shadow-sm border border-rose-300 animate-bounce cursor-pointer hover:scale-105 transition"
+                  className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-gradient-to-r from-rose-600 via-pink-500 to-rose-500 text-white text-[9px] font-black shadow-sm border border-rose-300 animate-bounce cursor-pointer hover:scale-105 transition"
                 >
-                  <Heart className="w-3 h-3 fill-white text-white animate-pulse" />
+                  <Heart className="w-2.5 h-2.5 fill-white text-white animate-pulse" />
                   <span>LOVE TO YOU ❤️</span>
                 </div>
 
-                <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-rose-100 border border-rose-300 text-rose-800 text-[9px] font-extrabold shadow-sm">
+                <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-rose-100 border border-rose-300 text-rose-800 text-[8.5px] font-extrabold shadow-sm">
                   <Sparkles className="w-2.5 h-2.5 text-amber-500 animate-spin-slow" />
                   <span>CORDIALLY INVITED</span>
                 </div>
               </div>
 
-              <div className="relative w-20 h-20 sm:w-24 sm:h-24 mx-auto mb-2 group">
-                <div className="absolute -inset-1.5 rounded-full bg-gradient-to-r from-rose-400 via-pink-400 to-amber-300 opacity-80 blur-md animate-pulse" />
+              <div className="relative w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-1.5 group">
+                <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-rose-400 via-pink-400 to-amber-300 opacity-80 blur-md animate-pulse" />
                 <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-white shadow-xl">
-                  <Image src={birthday.profileImage} alt={birthday.name} fill sizes="96px" priority className="object-cover" />
+                  <Image src={birthday.profileImage} alt={birthday.name} fill sizes="80px" priority className="object-cover" />
                 </div>
-                <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-gradient-to-tr from-amber-400 to-amber-200 flex items-center justify-center text-xs shadow-md">
+                <div className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-gradient-to-tr from-amber-400 to-amber-200 flex items-center justify-center text-[10px] shadow-md">
                   👑
                 </div>
               </div>
 
-              <h1 className="text-lg sm:text-xl font-black text-[#881337] mb-0.5 tracking-tight">
+              <h1 className="text-base sm:text-lg font-black text-[#881337] mb-0.5 tracking-tight leading-tight">
                 Happy Birthday <br />
                 <span className="text-gradient drop-shadow-sm">{birthday.name}</span> 🎉
               </h1>
 
-              <p className="text-rose-900 font-serif italic text-[11px] mb-1 leading-tight max-w-[250px] mx-auto">
+              <p className="text-rose-900 font-serif italic text-[10.5px] mb-1 leading-tight max-w-[240px] mx-auto">
                 "{birthday.headline}"
               </p>
 
-              <p className="text-[10.5px] text-rose-800/80 mb-2 max-w-[250px] mx-auto leading-snug">
+              <p className="text-[10px] text-rose-800/80 mb-1.5 max-w-[240px] mx-auto leading-snug">
                 {birthday.description}
               </p>
 
               {/* Direct Birthday Date Display */}
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-xl bg-white/90 border border-rose-300 text-rose-900 text-[10px] font-black shadow-sm mb-2.5">
+              <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-xl bg-white/90 border border-rose-300 text-rose-900 text-[9.5px] font-black shadow-sm mb-2">
                 <Calendar className="w-3 h-3 text-rose-600" />
                 <span>October 05, 2026</span>
               </div>
@@ -740,26 +808,26 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
               initial="initial"
               animate="animate"
               exit="exit"
-              className="bg-white/95 backdrop-blur-2xl rounded-2xl p-3.5 sm:p-4.5 text-center border border-rose-200/80 shadow-2xl relative overflow-hidden my-auto shrink-0"
+              className="bg-white/95 backdrop-blur-2xl rounded-2xl p-3 sm:p-4 text-center border border-rose-200/80 shadow-2xl relative overflow-hidden my-auto shrink-0 max-h-full overflow-y-auto"
             >
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-rose-100 border border-rose-300 text-rose-800 text-[9.5px] font-extrabold mb-1.5 shadow-sm">
+              <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-rose-100 border border-rose-300 text-rose-800 text-[9px] font-extrabold mb-1 shadow-sm">
                 <Cake className="w-3 h-3 text-amber-500" />
                 <span>SURPRISE EVENT #1</span>
               </div>
 
-              <h2 className="text-lg sm:text-xl font-black text-[#881337] mb-0.5">
+              <h2 className="text-base sm:text-lg font-black text-[#881337] mb-0.5">
                 Make A Wish & Blow Candles! 🎂
               </h2>
-              <p className="text-[10.5px] text-rose-800/90 mb-2 font-semibold">
+              <p className="text-[10px] text-rose-800/90 mb-1.5 font-semibold">
                 {!candlesBlown ? '⚠️ Tap candles to blow flame to unlock next slide!' : '✨ Flames Extinguished! Next slide unlocked!'}
               </p>
 
-              <div className="relative w-full aspect-[16/10] max-h-40 sm:max-h-44 rounded-xl overflow-hidden border border-rose-200/60 mb-2.5 shadow-lg cursor-pointer bg-gradient-to-b from-rose-950/20 to-black/60 group" onClick={handleBlowCandles}>
+              <div className="relative w-full aspect-[16/9] max-h-36 sm:max-h-40 rounded-xl overflow-hidden border border-rose-200/60 mb-2 shadow-lg cursor-pointer bg-gradient-to-b from-rose-950/20 to-black/60 group" onClick={handleBlowCandles}>
                 <Image src="/images/rose_birthday_cake.png" alt="Rose Birthday Cake" fill sizes="(max-width: 640px) 384px, 450px" className="object-cover object-center transition-transform duration-500 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/10 pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10 pointer-events-none" />
 
-                {/* Candles aligned directly on top tier */}
-                <div className="absolute bottom-[24%] inset-x-0 flex justify-center gap-5 z-20 pointer-events-auto">
+                {/* Candles positioned directly on top surface of clean cake tier */}
+                <div className="absolute top-[16%] inset-x-0 flex justify-center gap-4 sm:gap-6 z-20 pointer-events-auto">
                   {[1, 2, 3].map((i) => (
                     <div key={i} className="flex flex-col items-center group/candle hover:scale-110 transition-transform">
                       {!candlesBlown ? (
@@ -795,8 +863,8 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
                   <span>🎂 Tap To Blow Candles First</span>
                 </button>
               ) : (
-                <div className="space-y-1.5">
-                  <div className="p-1.5 rounded-xl bg-rose-100 border border-rose-300 text-[10.5px] font-bold text-rose-900">
+                <div className="space-y-1">
+                  <div className="p-1 rounded-xl bg-rose-100 border border-rose-300 text-[10px] font-bold text-rose-900">
                     ✨ Wish Sent To The Stars! Next Slide Unlocked 🎉
                   </div>
                   <button
@@ -824,39 +892,39 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
               initial="initial"
               animate="animate"
               exit="exit"
-              className="bg-white/95 backdrop-blur-2xl rounded-2xl p-3.5 sm:p-4.5 text-center border border-rose-200/80 shadow-2xl relative overflow-hidden my-auto shrink-0"
+              className="bg-white/95 backdrop-blur-2xl rounded-2xl p-3 sm:p-4 text-center border border-rose-200/80 shadow-2xl relative overflow-hidden my-auto shrink-0 max-h-full overflow-y-auto"
             >
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-pink-100 border border-pink-300 text-rose-800 text-[9.5px] font-extrabold mb-1.5 shadow-sm">
+              <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-pink-100 border border-pink-300 text-rose-800 text-[9px] font-extrabold mb-1 shadow-sm">
                 <Gift className="w-3 h-3 text-pink-600" />
                 <span>SURPRISE EVENT #2</span>
               </div>
 
-              <h2 className="text-lg sm:text-xl font-black text-[#881337] mb-0.5">
+              <h2 className="text-base sm:text-lg font-black text-[#881337] mb-0.5">
                 Unwrap Secret Gift! 🎁
               </h2>
-              <p className="text-[10.5px] text-rose-800/90 mb-2 font-semibold">
+              <p className="text-[10px] text-rose-800/90 mb-1.5 font-semibold">
                 {!giftOpened ? '⚠️ Tap ribbon to unwrap & unlock next slide!' : '✨ Gift Unwrapped! Next slide unlocked!'}
               </p>
 
-              <div className="relative w-full aspect-[16/10] max-h-40 sm:max-h-44 rounded-xl overflow-hidden border border-white mb-2.5 shadow-lg cursor-pointer" onClick={handleOpenGift}>
+              <div className="relative w-full aspect-[16/9] max-h-36 sm:max-h-40 rounded-xl overflow-hidden border border-white mb-2 shadow-lg cursor-pointer" onClick={handleOpenGift}>
                 <Image src="/images/rose_gift_box.png" alt="Rose Gift Box" fill sizes="(max-width: 640px) 384px, 450px" className="object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
 
                 {!giftOpened ? (
-                  <div className="absolute inset-0 flex flex-col items-center justify-center p-3">
-                    <div className="w-10 h-10 rounded-full bg-white/80 border border-rose-300 backdrop-blur-md flex items-center justify-center text-xl mb-1 animate-bounce shadow-md">
+                  <div className="absolute inset-0 flex flex-col items-center justify-center p-2">
+                    <div className="w-9 h-9 rounded-full bg-white/80 border border-rose-300 backdrop-blur-md flex items-center justify-center text-lg mb-1 animate-bounce shadow-md">
                       🎁
                     </div>
-                    <span className="text-rose-900 font-extrabold text-[9.5px] bg-white/90 px-2 py-0.5 rounded-full border border-rose-200">
+                    <span className="text-rose-900 font-extrabold text-[9px] bg-white/90 px-2 py-0.5 rounded-full border border-rose-200">
                       Tap Ribbon To Unwrap
                     </span>
                   </div>
                 ) : (
-                  <div className="absolute inset-0 bg-white/95 backdrop-blur-md p-3.5 flex flex-col justify-center text-left">
-                    <span className="text-rose-700 font-extrabold text-[9.5px] uppercase mb-0.5">
+                  <div className="absolute inset-0 bg-white/95 backdrop-blur-md p-3 flex flex-col justify-center text-left">
+                    <span className="text-rose-700 font-extrabold text-[9px] uppercase mb-0.5">
                       💖 Secret Note:
                     </span>
-                    <p className="text-rose-950 text-[10.5px] italic font-serif leading-relaxed">
+                    <p className="text-rose-950 text-[10px] italic font-serif leading-relaxed">
                       "{birthday.personalMessage}"
                     </p>
                   </div>
@@ -896,28 +964,28 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
               initial="initial"
               animate="animate"
               exit="exit"
-              className="bg-white/95 backdrop-blur-2xl rounded-2xl p-3.5 sm:p-4.5 text-center border border-rose-200/80 shadow-2xl relative overflow-hidden my-auto shrink-0"
+              className="bg-white/95 backdrop-blur-2xl rounded-2xl p-3 sm:p-4 text-center border border-rose-200/80 shadow-2xl relative overflow-hidden my-auto shrink-0 max-h-full overflow-y-auto"
             >
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-purple-100 border border-purple-300 text-rose-800 text-[9.5px] font-extrabold mb-1.5 shadow-sm">
+              <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-purple-100 border border-purple-300 text-rose-800 text-[9px] font-extrabold mb-1 shadow-sm">
                 <Camera className="w-3 h-3 text-purple-600" />
                 <span>SURPRISE EVENT #3</span>
               </div>
 
-              <h2 className="text-lg sm:text-xl font-black text-[#881337] mb-0.5">
+              <h2 className="text-base sm:text-lg font-black text-[#881337] mb-0.5">
                 Photo Memories Vault 📸
               </h2>
-              <p className="text-[10.5px] text-rose-800/90 mb-2">
+              <p className="text-[10px] text-rose-800/90 mb-1.5">
                 Tap photo thumbnails to explore!
               </p>
 
-              <div className="relative w-full aspect-[16/10] max-h-40 sm:max-h-44 rounded-xl overflow-hidden border-2 border-white mb-2 shadow-md cursor-pointer group" onClick={() => setSelectedPhotoModal(memoriesList[activeMemoryIdx])}>
+              <div className="relative w-full aspect-[16/9] max-h-36 sm:max-h-40 rounded-xl overflow-hidden border-2 border-white mb-2 shadow-md cursor-pointer group" onClick={() => setSelectedPhotoModal(memoriesList[activeMemoryIdx])}>
                 <Image src={memoriesList[activeMemoryIdx]?.imageUrl} alt={memoriesList[activeMemoryIdx]?.title || 'Memory'} fill sizes="(max-width: 640px) 384px, 450px" className="object-cover transition-transform duration-300 group-hover:scale-105" />
-                <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-black/80 via-black/30 to-transparent pointer-events-none" />
+                <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-black/80 via-black/30 to-transparent pointer-events-none" />
 
-                <div className="absolute bottom-1.5 inset-x-2 text-left text-white drop-shadow-md z-10 flex items-end justify-between">
+                <div className="absolute bottom-1 inset-x-2 text-left text-white drop-shadow-md z-10 flex items-end justify-between">
                   <div className="pr-2">
-                    <h4 className="font-extrabold text-white text-[10.5px] leading-tight">{memoriesList[activeMemoryIdx]?.title}</h4>
-                    <p className="text-[9px] text-rose-100/90 line-clamp-1 font-medium">{memoriesList[activeMemoryIdx]?.description}</p>
+                    <h4 className="font-extrabold text-white text-[10px] leading-tight">{memoriesList[activeMemoryIdx]?.title}</h4>
+                    <p className="text-[8.5px] text-rose-100/90 line-clamp-1 font-medium">{memoriesList[activeMemoryIdx]?.description}</p>
                   </div>
                   <span className="shrink-0 bg-white/20 backdrop-blur-md px-1.5 py-0.5 rounded text-[8px] font-bold text-white border border-white/30">
                     Enlarge 🔍
@@ -925,16 +993,16 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
                 </div>
               </div>
 
-              <div className="flex justify-center gap-1.5 mb-2.5">
+              <div className="flex justify-center gap-1.5 mb-2">
                 {memoriesList.map((m, idx) => (
                   <button
                     key={idx}
                     onClick={() => setActiveMemoryIdx(idx)}
-                    className={`relative w-10 h-10 rounded-lg overflow-hidden border-2 transition ${
+                    className={`relative w-9 h-9 rounded-lg overflow-hidden border-2 transition ${
                       activeMemoryIdx === idx ? 'border-rose-500 scale-105 shadow-md ring-2 ring-rose-400/50' : 'border-white/80 opacity-70 hover:opacity-100'
                     }`}
                   >
-                    <Image src={m.imageUrl} alt="Thumb" fill sizes="40px" className="object-cover" />
+                    <Image src={m.imageUrl} alt="Thumb" fill sizes="36px" className="object-cover" />
                   </button>
                 ))}
               </div>
@@ -958,23 +1026,23 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
               initial="initial"
               animate="animate"
               exit="exit"
-              className="bg-white/95 backdrop-blur-2xl rounded-2xl p-3.5 sm:p-4.5 text-center border border-rose-200/80 shadow-2xl relative overflow-hidden my-auto shrink-0"
+              className="bg-white/95 backdrop-blur-2xl rounded-2xl p-3 sm:p-4 text-center border border-rose-200/80 shadow-2xl relative overflow-hidden my-auto shrink-0 max-h-full overflow-y-auto"
             >
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-100 border border-amber-300 text-rose-800 text-[9.5px] font-extrabold mb-1.5 shadow-sm">
+              <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-100 border border-amber-300 text-rose-800 text-[9px] font-extrabold mb-1 shadow-sm">
                 <Star className="w-3 h-3 text-amber-600" />
                 <span>FINALE & VIDEO EXPORT</span>
               </div>
 
-              <h2 className="text-lg sm:text-xl font-black text-[#881337] mb-1">
+              <h2 className="text-base sm:text-lg font-black text-[#881337] mb-1">
                 Life Journey & Video 🌟
               </h2>
 
-              <div className="flex justify-center gap-1.5 mb-2 overflow-x-auto py-0.5">
+              <div className="flex justify-center gap-1.5 mb-1.5 overflow-x-auto py-0.5">
                 {timelineEvents.map((t, idx) => (
                   <button
                     key={idx}
                     onClick={() => setActiveTimelineIdx(idx)}
-                    className={`px-2 py-0.5 rounded-lg text-[9.5px] font-black transition ${
+                    className={`px-2 py-0.5 rounded-lg text-[9px] font-black transition ${
                       activeTimelineIdx === idx
                         ? 'bg-gradient-to-r from-rose-500 to-amber-500 text-white shadow-md scale-105'
                         : 'bg-white/80 text-rose-900 border border-rose-200'
@@ -985,14 +1053,14 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
                 ))}
               </div>
 
-              <div className="bg-rose-50/90 backdrop-blur-md p-3 rounded-xl border border-rose-200 shadow-sm text-left mb-3">
-                <div className="text-rose-700 font-extrabold text-[9.5px] tracking-wider uppercase mb-0.5">
+              <div className="bg-rose-50/90 backdrop-blur-md p-2.5 rounded-xl border border-rose-200 shadow-sm text-left mb-2.5">
+                <div className="text-rose-700 font-extrabold text-[9px] tracking-wider uppercase mb-0.5">
                   YEAR {timelineEvents[activeTimelineIdx]?.year}
                 </div>
-                <h4 className="text-[11px] font-black text-rose-950 mb-0.5">
+                <h4 className="text-[10.5px] font-black text-rose-950 mb-0.5">
                   {timelineEvents[activeTimelineIdx]?.title}
                 </h4>
-                <p className="text-[10.5px] text-rose-900 font-medium leading-relaxed">
+                <p className="text-[10px] text-rose-900 font-medium leading-relaxed">
                   {timelineEvents[activeTimelineIdx]?.description}
                 </p>
               </div>
@@ -1009,7 +1077,7 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
 
                 <button
                   onClick={() => { setDirection('prev'); setCurrentSlide(0); }}
-                  className="w-full py-1.5 rounded-xl bg-white/90 border border-rose-200 text-rose-900 font-extrabold text-[10.5px] hover:bg-white transition flex items-center justify-center gap-1 shadow-sm"
+                  className="w-full py-1.5 rounded-xl bg-white/90 border border-rose-200 text-rose-900 font-extrabold text-[10px] hover:bg-white transition flex items-center justify-center gap-1 shadow-sm"
                 >
                   <RefreshCw className="w-3 h-3 text-rose-600" />
                   <span>Replay Celebration Slides</span>
@@ -1022,34 +1090,34 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
       </div>
 
       {/* FOOTER SLIDE CONTROLS WITH LOCK PROTECTION */}
-      <footer className="w-full max-w-sm shrink-0 z-40 flex items-center justify-between pt-1 pb-1 px-1">
+      <footer className="w-full max-w-sm shrink-0 z-40 flex items-center justify-between pt-0.5 pb-0.5 px-1">
         <button
           onClick={handlePrevSlide}
           disabled={currentSlide === 0}
-          className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-white/90 hover:bg-white disabled:opacity-40 disabled:pointer-events-none text-rose-950 font-extrabold text-[11px] shadow-sm border border-rose-200 transition"
+          className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-white/90 hover:bg-white disabled:opacity-40 disabled:pointer-events-none text-rose-950 font-extrabold text-[10px] shadow-sm border border-rose-200 transition"
         >
-          <ChevronLeft className="w-3.5 h-3.5" />
+          <ChevronLeft className="w-3 h-3" />
           <span>Prev</span>
         </button>
 
-        <span className="text-[11px] font-black text-rose-900 flex items-center gap-1">
+        <span className="text-[10px] font-black text-rose-900 flex items-center gap-1">
           <span>Slide {currentSlide + 1} of {totalSlides}</span>
         </span>
 
         {currentSlide < maxUnlockedSlide && currentSlide < totalSlides - 1 ? (
           <button
             onClick={handleNextSlide}
-            className="flex items-center gap-1 px-4 py-1.5 rounded-xl bg-gradient-to-r from-rose-500 to-pink-600 text-white font-black text-[11px] transition shadow-md hover:scale-105 active:scale-95"
+            className="flex items-center gap-1 px-3 py-1 rounded-xl bg-gradient-to-r from-rose-500 to-pink-600 text-white font-black text-[10px] transition shadow-md hover:scale-105 active:scale-95"
           >
             <span>Next Slide</span>
-            <ChevronRight className="w-3.5 h-3.5" />
+            <ChevronRight className="w-3 h-3" />
           </button>
         ) : (
           <button
             disabled
-            className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-rose-200/60 text-rose-700/60 font-bold text-[11px] cursor-not-allowed border border-rose-300/40"
+            className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-rose-200/60 text-rose-700/60 font-bold text-[10px] cursor-not-allowed border border-rose-300/40"
           >
-            <Lock className="w-3 h-3" />
+            <Lock className="w-2.5 h-2.5" />
             <span>Finish First</span>
           </button>
         )}
