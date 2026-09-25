@@ -587,48 +587,48 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
       <div className="absolute bottom-10 right-10 w-[300px] h-[300px] bg-pink-400/20 rounded-full blur-[100px] pointer-events-none" />
 
       {/* Top Compact Mobile App Header */}
-      <header className="w-full max-w-sm shrink-0 z-40 flex items-center justify-between px-1 pt-1 pb-1">
-        <div className="flex items-center gap-2">
-          <div className="relative w-8 h-8 rounded-full p-[1.5px] bg-gradient-to-tr from-rose-500 via-pink-400 to-amber-400 shadow-sm">
+      <header className="w-full max-w-sm shrink-0 z-40 flex items-center justify-between px-1 pt-1 pb-1 gap-1">
+        <div className="flex items-center gap-1.5 shrink-0">
+          <div className="relative w-7 h-7 sm:w-8 sm:h-8 rounded-full p-[1.5px] bg-gradient-to-tr from-rose-500 via-pink-400 to-amber-400 shadow-sm shrink-0">
             <div className="relative w-full h-full rounded-full overflow-hidden border border-white">
               <Image src={birthday.profileImage} alt={birthday.name} fill sizes="32px" className="object-cover" />
             </div>
           </div>
           <div>
-            <div className="flex items-center gap-1">
-              <span className="font-extrabold text-xs text-[#881337] tracking-tight">{birthday.name}'s Party</span>
-              <CheckCircle2 className="w-3 h-3 text-rose-600 fill-rose-600" />
+            <div className="flex items-center gap-0.5">
+              <span className="font-extrabold text-[11px] sm:text-xs text-[#881337] tracking-tight whitespace-nowrap truncate max-w-[85px] sm:max-w-none">{birthday.name}'s Party</span>
+              <CheckCircle2 className="w-3 h-3 text-rose-600 fill-rose-600 shrink-0" />
             </div>
-            <span className="text-[10px] text-rose-700/80 font-bold block">
+            <span className="text-[9px] sm:text-[10px] text-rose-700/80 font-bold block leading-none">
               Slide {currentSlide + 1} of {totalSlides}
             </span>
           </div>
         </div>
 
         {/* Top Controls */}
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-1 shrink-0">
           <audio ref={audioRef} src="/audio/birthday_tune.wav" preload="auto" loop />
           <button
             onClick={(e) => triggerHeartBlow(e)}
-            className="px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-rose-500 via-pink-500 to-rose-600 text-white font-black text-[11px] shadow-sm hover:scale-105 active:scale-95 transition flex items-center gap-1 border border-white/40"
+            className="px-2 py-1.5 rounded-xl bg-gradient-to-r from-rose-500 via-pink-500 to-rose-600 text-white font-extrabold text-[10px] sm:text-[11px] shadow-sm hover:scale-105 active:scale-95 transition flex items-center gap-1 border border-white/40 whitespace-nowrap leading-none shrink-0"
             title="Blow Floating Hearts!"
           >
-            <Heart className="w-3.5 h-3.5 fill-white text-white animate-pulse" />
-            <span>Love To You ❤️</span>
+            <Heart className="w-3 h-3 fill-white text-white animate-pulse shrink-0" />
+            <span>Love To You</span>
           </button>
           <button
             onClick={toggleSound}
-            className="p-1.5 rounded-xl bg-white/80 hover:bg-white text-rose-900 shadow-sm border border-rose-200 transition"
+            className="p-1.5 rounded-xl bg-white/80 hover:bg-white text-rose-900 shadow-sm border border-rose-200 transition shrink-0"
             aria-label="Sound Toggle"
           >
             {isMuted ? <VolumeX className="w-3.5 h-3.5 text-rose-600" /> : <Volume2 className="w-3.5 h-3.5 text-amber-600 animate-pulse" />}
           </button>
           <button
             onClick={handleSharePage}
-            className="px-2 py-1.5 rounded-xl bg-gradient-to-r from-rose-500 via-pink-500 to-rose-600 text-[11px] font-black text-white shadow-sm hover:scale-105 transition flex items-center gap-1"
+            className="p-1.5 sm:px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-rose-500 via-pink-500 to-rose-600 text-[10px] sm:text-[11px] font-black text-white shadow-sm hover:scale-105 transition flex items-center gap-1 whitespace-nowrap shrink-0"
           >
             <Share2 className="w-3 h-3" />
-            <span>Share</span>
+            <span className="hidden sm:inline">Share</span>
           </button>
         </div>
       </header>
