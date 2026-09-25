@@ -194,18 +194,15 @@ inMemoryBirthdays.set(FALLBACK_PRIYA_BIRTHDAY.id, FALLBACK_PRIYA_BIRTHDAY)
 inMemoryBirthdays.set(FALLBACK_PRIYA_BIRTHDAY.slug, FALLBACK_PRIYA_BIRTHDAY)
 
 export async function getBirthdayBySlug(slug: string): Promise<BirthdayWithDetails | null> {
-  // 1. Check inMemoryBirthdays map for instant live session updates
-  if (inMemoryBirthdays.has(slug)) {
-    return inMemoryBirthdays.get(slug)!
-  }
-  for (const b of inMemoryBirthdays.values()) {
-    if (b.slug === slug) return b
-  }
-
-  // 2. Query Prisma database
+  // 1. Query Prisma database first so live dashboard edits are reflected immediately
   try {
-    const birthday = await prisma.birthday.findUnique({
-      where: { slug },
+    const birthday = await prisma.birthday.findFirst({
+      where: {
+        OR: [
+          { slug },
+          { id: slug },
+        ]
+      },
       include: {
         memories: { orderBy: { displayOrder: 'asc' } },
         timelineEvents: { orderBy: { displayOrder: 'asc' } },
@@ -216,15 +213,27 @@ export async function getBirthdayBySlug(slug: string): Promise<BirthdayWithDetai
     })
 
     if (birthday) {
-      inMemoryBirthdays.set(birthday.id, birthday as BirthdayWithDetails)
-      inMemoryBirthdays.set(birthday.slug, birthday as BirthdayWithDetails)
-      return birthday as BirthdayWithDetails
+      const bDetails = birthday as BirthdayWithDetails
+      inMemoryBirthdays.set(birthday.id, bDetails)
+      inMemoryBirthdays.set(birthday.slug, bDetails)
+      if (birthday.slug === 'nabesha-2026' || birthday.slug === 'priya-2026') {
+        Object.assign(FALLBACK_PRIYA_BIRTHDAY, bDetails)
+      }
+      return bDetails
     }
   } catch (err) {
     console.warn('Prisma DB query issue, serving in-memory fallback:', err)
   }
 
-  // If slug matches nabesha or priya demo
+  // 2. Check inMemoryBirthdays map for session updates
+  if (inMemoryBirthdays.has(slug)) {
+    return inMemoryBirthdays.get(slug)!
+  }
+  for (const b of inMemoryBirthdays.values()) {
+    if (b.slug === slug) return b
+  }
+
+  // 3. Fallback for demo slugs
   if (slug === 'nabesha' || slug === 'nabesha-2026' || slug === 'priya' || slug === 'priya-2026') {
     return FALLBACK_PRIYA_BIRTHDAY
   }

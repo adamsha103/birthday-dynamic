@@ -5,6 +5,9 @@ import { getBirthdayBySlug } from '@/lib/data-store'
 import { getThemeStyles } from '@/lib/themes'
 import BirthdayCelebrationView from '@/components/BirthdayCelebrationView'
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 interface PageProps {
   params: Promise<{ slug: string }>
 }

@@ -5,7 +5,7 @@ import BirthdayForm from '@/components/dashboard/BirthdayForm'
 
 export default function NewBirthdayPage() {
   return (
-    <div className="flex min-h-screen bg-[#0d0714] text-white">
+    <div className="flex flex-col md:flex-row min-h-screen bg-[#0d0714] text-white">
       <DashboardSidebar />
 
       <div className="flex-1 flex flex-col min-w-0">

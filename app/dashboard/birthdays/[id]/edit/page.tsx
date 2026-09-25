@@ -111,7 +111,7 @@ export default function EditBirthdayPage() {
   ]
 
   return (
-    <div className="flex min-h-screen bg-[#0d0914] text-white">
+    <div className="flex flex-col md:flex-row min-h-screen bg-[#0d0914] text-white">
       <DashboardSidebar />
 
       <div className="flex-1 flex flex-col min-w-0">

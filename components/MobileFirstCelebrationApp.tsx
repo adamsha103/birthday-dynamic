@@ -39,9 +39,28 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
   const [isMuted, setIsMuted] = useState(false)
   const [selectedPhotoModal, setSelectedPhotoModal] = useState<any | null>(null)
   const [isGeneratingVideo, setIsGeneratingVideo] = useState(false)
+  const [floatingHearts, setFloatingHearts] = useState<
+    Array<{ id: number; x: number; y: number; size: number; emoji: string; rotation: number }>
+  >([])
   const audioRef = React.useRef<HTMLAudioElement | null>(null)
 
   const totalSlides = 5
+
+  const triggerHeartBlow = (e?: React.MouseEvent) => {
+    const emojis = ['❤️', '💖', '💗', '💕', '💓', '✨', '🌹', '❤️‍🔥']
+    const clientX = e ? e.clientX : (typeof window !== 'undefined' ? window.innerWidth / 2 : 200)
+    const clientY = e ? e.clientY : (typeof window !== 'undefined' ? window.innerHeight / 2 : 400)
+
+    const newHearts = Array.from({ length: 22 }).map((_, i) => ({
+      id: Date.now() + i + Math.random(),
+      x: clientX + (Math.random() * 180 - 90),
+      y: clientY + (Math.random() * 40 - 20),
+      size: Math.floor(Math.random() * 16) + 20,
+      emoji: emojis[Math.floor(Math.random() * emojis.length)],
+      rotation: Math.random() * 40 - 20,
+    }))
+    setFloatingHearts((prev) => [...prev.slice(-40), ...newHearts])
+  }
 
   useEffect(() => {
     setMounted(true)
@@ -58,6 +77,9 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
     }
 
     const timer = setTimeout(startAudio, 300)
+    const heartTimer = setTimeout(() => {
+      triggerHeartBlow()
+    }, 600)
 
     const handleFirstTap = () => {
       if (audioRef.current && audioRef.current.paused) {
@@ -73,6 +95,7 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
 
     return () => {
       clearTimeout(timer)
+      clearTimeout(heartTimer)
       window.removeEventListener('click', handleFirstTap)
       window.removeEventListener('touchstart', handleFirstTap)
     }
@@ -91,10 +114,11 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
 
   if (!mounted) return null
 
-  const handleStartJourney = () => {
+  const handleStartJourney = (e?: React.MouseEvent) => {
     setMaxUnlockedSlide((prev) => Math.max(prev, 1))
     setDirection('next')
     setCurrentSlide(1)
+    triggerHeartBlow(e)
     triggerConfetti({ particleCount: 40, spread: 45 })
   }
 
@@ -113,16 +137,18 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
     }
   }
 
-  const handleBlowCandles = () => {
+  const handleBlowCandles = (e?: React.MouseEvent) => {
     setCandlesBlown(true)
     setMaxUnlockedSlide((prev) => Math.max(prev, 2))
+    triggerHeartBlow(e)
     triggerConfetti({ particleCount: 120, spread: 90 })
     triggerFireworks()
   }
 
-  const handleOpenGift = () => {
+  const handleOpenGift = (e?: React.MouseEvent) => {
     setGiftOpened(true)
     setMaxUnlockedSlide((prev) => Math.max(prev, 3))
+    triggerHeartBlow(e)
     triggerConfetti({ particleCount: 120, spread: 90 })
   }
 
@@ -583,6 +609,14 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
         <div className="flex items-center gap-1.5">
           <audio ref={audioRef} src="/audio/birthday_tune.wav" preload="auto" loop />
           <button
+            onClick={(e) => triggerHeartBlow(e)}
+            className="px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-rose-500 via-pink-500 to-rose-600 text-white font-black text-[11px] shadow-sm hover:scale-105 active:scale-95 transition flex items-center gap-1 border border-white/40"
+            title="Blow Floating Hearts!"
+          >
+            <Heart className="w-3.5 h-3.5 fill-white text-white animate-pulse" />
+            <span>Love To You ❤️</span>
+          </button>
+          <button
             onClick={toggleSound}
             className="p-1.5 rounded-xl bg-white/80 hover:bg-white text-rose-900 shadow-sm border border-rose-200 transition"
             aria-label="Sound Toggle"
@@ -591,7 +625,7 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
           </button>
           <button
             onClick={handleSharePage}
-            className="px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-rose-500 via-pink-500 to-rose-600 text-[11px] font-black text-white shadow-sm hover:scale-105 transition flex items-center gap-1"
+            className="px-2 py-1.5 rounded-xl bg-gradient-to-r from-rose-500 via-pink-500 to-rose-600 text-[11px] font-black text-white shadow-sm hover:scale-105 transition flex items-center gap-1"
           >
             <Share2 className="w-3 h-3" />
             <span>Share</span>
@@ -642,7 +676,17 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
               exit="exit"
               className="bg-white/95 backdrop-blur-2xl rounded-2xl p-4 sm:p-5 text-center border border-rose-200/80 shadow-2xl relative overflow-hidden my-auto shrink-0"
             >
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-100 border border-rose-300 text-rose-800 text-[10px] font-extrabold mb-3 shadow-sm">
+              {/* LOVE TO YOU ❤️ Heart Symbol Badge */}
+              <div 
+                onClick={(e) => triggerHeartBlow(e)}
+                className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-gradient-to-r from-rose-600 via-pink-500 to-rose-500 text-white text-[10px] font-black mb-2 shadow-md border border-rose-300 animate-bounce cursor-pointer hover:scale-105 transition"
+              >
+                <Heart className="w-3.5 h-3.5 fill-white text-white animate-pulse" />
+                <span>LOVE TO YOU ❤️</span>
+                <Sparkles className="w-3 h-3 text-amber-200 animate-spin-slow" />
+              </div>
+
+              <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-rose-100 border border-rose-300 text-rose-800 text-[9.5px] font-extrabold mb-3 shadow-sm block w-fit mx-auto">
                 <Sparkles className="w-3 h-3 text-amber-500 animate-spin-slow" />
                 <span>YOU ARE CORDIALLY INVITED</span>
               </div>
@@ -1030,6 +1074,30 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* FLOATING HEARTS BLOW ANIMATION LAYER */}
+      <div className="fixed inset-0 pointer-events-none z-[80] overflow-hidden">
+        {floatingHearts.map((heart) => (
+          <motion.div
+            key={heart.id}
+            initial={{ opacity: 1, y: heart.y, x: heart.x, scale: 0.5, rotate: heart.rotation }}
+            animate={{ 
+              opacity: [1, 1, 0], 
+              y: heart.y - 450 - Math.random() * 150, 
+              x: heart.x + (Math.random() * 120 - 60), 
+              scale: [0.5, 1.4, 1.1],
+              rotate: heart.rotation + (Math.random() * 60 - 30)
+            }}
+            transition={{ duration: 3 + Math.random() * 1.5, ease: 'easeOut' }}
+            onAnimationComplete={() => {
+              setFloatingHearts((prev) => prev.filter((h) => h.id !== heart.id))
+            }}
+            className="absolute text-2xl sm:text-3xl select-none filter drop-shadow-lg"
+          >
+            {heart.emoji}
+          </motion.div>
+        ))}
+      </div>
 
     </div>
   )

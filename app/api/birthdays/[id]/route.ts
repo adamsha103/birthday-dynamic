@@ -91,8 +91,15 @@ export async function PUT(
           music: true,
         }
       })
-      await saveInMemoryBirthday(updated as any)
-      return NextResponse.json(updated)
+
+      const finalResult = {
+        ...updated,
+        ...(Array.isArray(body.memories) && body.memories.length > 0 ? { memories: body.memories } : {}),
+        ...(Array.isArray(body.timelineEvents) && body.timelineEvents.length > 0 ? { timelineEvents: body.timelineEvents } : {}),
+      }
+
+      await saveInMemoryBirthday(finalResult as any)
+      return NextResponse.json(finalResult)
     } catch (dbErr) {
       console.warn('DB update fallback in-memory:', dbErr)
       const existing = await getBirthdayById(id)
