@@ -77,7 +77,7 @@ const FALLBACK_PRIYA_BIRTHDAY: BirthdayWithDetails = {
       birthdayId: 'priya-demo-id',
       title: '3-Tier Luxury Rose Cake',
       description: 'Decadent cake adorned with 24k edible gold foil and fresh rose petals.',
-      imageUrl: '/images/rose_birthday_cake.png',
+      imageUrl: '/images/cakee.png',
       displayOrder: 3,
       createdAt: new Date()
     },
@@ -147,7 +147,7 @@ const FALLBACK_PRIYA_BIRTHDAY: BirthdayWithDetails = {
       year: '2026',
       title: 'A Golden Year Ahead',
       description: 'Ready to shine brighter than ever, surrounded by immense love and limitless possibilities!',
-      imageUrl: '/images/rose_birthday_cake.png',
+      imageUrl: '/images/cakee.png',
       displayOrder: 5,
       createdAt: new Date()
     }
