@@ -36,7 +36,7 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
   const [giftOpened, setGiftOpened] = useState(false)
   const [activeMemoryIdx, setActiveMemoryIdx] = useState(0)
   const [activeTimelineIdx, setActiveTimelineIdx] = useState(0)
-  const [isMuted, setIsMuted] = useState(true)
+  const [isMuted, setIsMuted] = useState(false)
   const [selectedPhotoModal, setSelectedPhotoModal] = useState<any | null>(null)
   const [isGeneratingVideo, setIsGeneratingVideo] = useState(false)
   const audioRef = React.useRef<HTMLAudioElement | null>(null)
@@ -45,6 +45,37 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
 
   useEffect(() => {
     setMounted(true)
+
+    const startAudio = () => {
+      if (audioRef.current) {
+        audioRef.current.loop = true
+        audioRef.current.play().then(() => {
+          setIsMuted(false)
+        }).catch(() => {
+          // Kept active for user tap trigger
+        })
+      }
+    }
+
+    const timer = setTimeout(startAudio, 300)
+
+    const handleFirstTap = () => {
+      if (audioRef.current && audioRef.current.paused) {
+        audioRef.current.loop = true
+        audioRef.current.play().then(() => setIsMuted(false)).catch(() => {})
+      }
+      window.removeEventListener('click', handleFirstTap)
+      window.removeEventListener('touchstart', handleFirstTap)
+    }
+
+    window.addEventListener('click', handleFirstTap)
+    window.addEventListener('touchstart', handleFirstTap)
+
+    return () => {
+      clearTimeout(timer)
+      window.removeEventListener('click', handleFirstTap)
+      window.removeEventListener('touchstart', handleFirstTap)
+    }
   }, [])
 
   const toggleSound = () => {
