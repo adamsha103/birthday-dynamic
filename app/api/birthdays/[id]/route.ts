@@ -48,7 +48,7 @@ export async function PUT(
             birthdayId: id,
             title: m.title || `Memory #${idx + 1}`,
             description: m.description || '',
-            imageUrl: m.imageUrl || '/images/rose_memory_1.png',
+            imageUrl: m.imageUrl || '/images/rose_memory_1.webp',
             displayOrder: idx + 1,
           }))
         }).catch(() => {})

@@ -45,7 +45,7 @@ export default function BirthdayCake({ birthdayName }: BirthdayCakeProps) {
           {/* Cake Image Box with Candles Overlay */}
           <div className="relative w-full h-80 rounded-3xl overflow-hidden border-2 border-rose-400/30 shadow-2xl glass-panel">
             <Image
-              src="/images/cakee.png"
+              src="/images/cakee.webp"
               alt="Luxury Rose Birthday Cake"
               fill
               priority

@@ -115,10 +115,10 @@ export default function InstagramBirthdayStory({ birthday }: BirthdayStoryProps)
   }
 
   const memoriesList = birthday.memories && birthday.memories.length > 0 ? birthday.memories : [
-    { title: 'Romantic Rose Celebration', imageUrl: '/images/rose_memory_1.png', description: 'Crystal champagne toast & warm golden lights.' },
-    { title: 'Sunset Beach Walk', imageUrl: '/images/rose_memory_2.png', description: 'Warm breeze and glowing evening sky.' },
-    { title: 'Magical Rooftop Party', imageUrl: '/images/rose_memory_3.png', description: 'Fairy lights, sparklers, and rose blossoms.' },
-    { title: 'Luxury Birthday Cake', imageUrl: '/images/rose_birthday_cake.png', description: '3-tier rose gold cake with 24k gold leaf.' }
+    { title: 'Romantic Rose Celebration', imageUrl: '/images/rose_memory_1.webp', description: 'Crystal champagne toast & warm golden lights.' },
+    { title: 'Sunset Beach Walk', imageUrl: '/images/rose_memory_2.webp', description: 'Warm breeze and glowing evening sky.' },
+    { title: 'Magical Rooftop Party', imageUrl: '/images/rose_memory_3.webp', description: 'Fairy lights, sparklers, and rose blossoms.' },
+    { title: 'Luxury Birthday Cake', imageUrl: '/images/rose_birthday_cake.webp', description: '3-tier rose gold cake with 24k gold leaf.' }
   ]
 
   const timelineList = birthday.timelineEvents && birthday.timelineEvents.length > 0 ? birthday.timelineEvents : [

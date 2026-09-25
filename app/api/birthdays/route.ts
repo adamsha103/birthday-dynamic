@@ -36,26 +36,26 @@ export async function POST(req: NextRequest) {
       ? body.memories.map((m: any, idx: number) => ({
           title: m.title || `Memory #${idx + 1}`,
           description: m.description || '',
-          imageUrl: m.imageUrl || '/images/rose_memory_1.png',
+          imageUrl: m.imageUrl || '/images/rose_memory_1.webp',
           displayOrder: idx + 1,
         }))
       : [
           {
             title: 'Celebration Toast',
             description: 'Crystal rose champagne & golden lights',
-            imageUrl: '/images/rose_memory_1.png',
+            imageUrl: '/images/rose_memory_1.webp',
             displayOrder: 1,
           },
           {
             title: 'Sunset Beach Walk',
             description: 'Golden hour waves & glowing evening sky',
-            imageUrl: '/images/rose_memory_2.png',
+            imageUrl: '/images/rose_memory_2.webp',
             displayOrder: 2,
           },
           {
             title: '3-Tier Birthday Cake',
             description: 'Luxury cake adorned with edible gold foil',
-            imageUrl: '/images/rose_birthday_cake.png',
+            imageUrl: '/images/rose_birthday_cake.webp',
             displayOrder: 3,
           },
           {

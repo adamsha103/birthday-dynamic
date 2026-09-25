@@ -47,7 +47,7 @@ export default function BirthdayExperience({ birthday }: BirthdayExperienceProps
   const currentStepNum = step === 'envelope' ? 1 : step === 'letter' ? 2 : 3
 
   return (
-    <div className="relative min-h-screen h-[100dvh] max-h-[100dvh] bg-gradient-to-b from-[#fff1f2] via-[#ffe4e6] to-[#fecdd3] text-[#881337] flex flex-col justify-between items-center py-2 px-3 sm:px-4 overflow-hidden select-none">
+    <div className="relative min-h-screen h-[100dvh] max-h-[100dvh] bg-gradient-to-b from-[#fff1f2] via-[#ffe4e6] to-[#fecdd3] text-[#881337] flex flex-col justify-center items-center gap-1.5 py-1.5 px-2 sm:py-3 sm:px-4 overflow-hidden select-none">
       
       {/* Ambient background glow */}
       <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[450px] h-[450px] bg-rose-400/20 rounded-full blur-[120px] pointer-events-none" />
@@ -63,7 +63,7 @@ export default function BirthdayExperience({ birthday }: BirthdayExperienceProps
         </div>
       </header>
 
-      <div className="w-full max-w-sm flex-1 flex flex-col justify-center items-center my-auto z-10 py-1 overflow-hidden min-h-0">
+      <div className="w-full max-w-sm flex-1 flex flex-col justify-center items-center my-0 z-10 py-0.5 overflow-hidden min-h-0">
         <AnimatePresence mode="wait">
           
           {/* STEP 1: ENVELOPE INTRO */}

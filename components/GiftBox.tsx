@@ -48,7 +48,7 @@ export default function GiftBox({ personalMessage, birthdayName }: GiftBoxProps)
             className="relative w-full h-72 rounded-3xl overflow-hidden border-2 border-rose-400/30 shadow-2xl cursor-pointer glass-panel"
           >
             <Image
-              src="/images/rose_gift_box.png"
+              src="/images/rose_gift_box.webp"
               alt="Luxury Rose Birthday Gift Box"
               fill
               priority

@@ -114,10 +114,10 @@ export default function MobileCelebrationJourney({ birthday }: MobileJourneyProp
   if (!mounted) return null
 
   const memories = birthday.memories && birthday.memories.length > 0 ? birthday.memories : [
-    { title: 'Romantic Rose Celebration', imageUrl: '/images/rose_memory_1.png', description: 'Crystal champagne toast & warm golden lights.' },
-    { title: 'Sunset Beach Walk', imageUrl: '/images/rose_memory_2.png', description: 'Warm breeze and glowing evening sky.' },
-    { title: 'Magical Rooftop Party', imageUrl: '/images/rose_memory_3.png', description: 'Fairy lights, sparklers, and rose blossoms.' },
-    { title: '3-Tier Rose Cake', imageUrl: '/images/rose_birthday_cake.png', description: 'Decadent cake adorned with 24k gold leaf.' }
+    { title: 'Romantic Rose Celebration', imageUrl: '/images/rose_memory_1.webp', description: 'Crystal champagne toast & warm golden lights.' },
+    { title: 'Sunset Beach Walk', imageUrl: '/images/rose_memory_2.webp', description: 'Warm breeze and glowing evening sky.' },
+    { title: 'Magical Rooftop Party', imageUrl: '/images/rose_memory_3.webp', description: 'Fairy lights, sparklers, and rose blossoms.' },
+    { title: '3-Tier Rose Cake', imageUrl: '/images/rose_birthday_cake.webp', description: 'Decadent cake adorned with 24k gold leaf.' }
   ]
 
   const timelineEvents = birthday.timelineEvents && birthday.timelineEvents.length > 0 ? birthday.timelineEvents : [

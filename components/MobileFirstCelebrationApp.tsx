@@ -196,9 +196,9 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
       }
 
       // Preload profile image and memory images
-      const profileImg = await loadImg(birthday.profileImage || '/images/rose_birthday_hero.png')
-      const memoryImg1 = await loadImg(memoriesList[0]?.imageUrl || '/images/rose_memory_1.png')
-      const memoryImg2 = await loadImg(memoriesList[1]?.imageUrl || '/images/rose_memory_2.png')
+      const profileImg = await loadImg(birthday.profileImage || '/images/rose_birthday_hero.webp')
+      const memoryImg1 = await loadImg(memoriesList[0]?.imageUrl || '/images/rose_memory_1.webp')
+      const memoryImg2 = await loadImg(memoriesList[1]?.imageUrl || '/images/rose_memory_2.webp')
 
       // 2. Setup 720x1280 Canvas
       const canvas = document.createElement('canvas')
@@ -613,10 +613,10 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
   }
 
   const memoriesList = birthday.memories && birthday.memories.length > 0 ? birthday.memories : [
-    { title: 'Romantic Rose Celebration', imageUrl: '/images/rose_memory_1.png', description: 'Crystal champagne toast & warm golden lights.' },
-    { title: 'Sunset Beach Walk', imageUrl: '/images/rose_memory_2.png', description: 'Warm breeze and glowing evening sky.' },
-    { title: 'Magical Rooftop Party', imageUrl: '/images/rose_memory_3.png', description: 'Fairy lights, sparklers, and rose blossoms.' },
-    { title: '3-Tier Luxury Rose Cake', imageUrl: '/images/cakee.png', description: 'Decadent cake adorned with 24k gold leaf.' }
+    { title: 'Romantic Rose Celebration', imageUrl: '/images/rose_memory_1.webp', description: 'Crystal champagne toast & warm golden lights.' },
+    { title: 'Sunset Beach Walk', imageUrl: '/images/rose_memory_2.webp', description: 'Warm breeze and glowing evening sky.' },
+    { title: 'Magical Rooftop Party', imageUrl: '/images/rose_memory_3.webp', description: 'Fairy lights, sparklers, and rose blossoms.' },
+    { title: '3-Tier Luxury Rose Cake', imageUrl: '/images/cakee.webp', description: 'Decadent cake adorned with 24k gold leaf.' }
   ]
 
   const timelineEvents = birthday.timelineEvents && birthday.timelineEvents.length > 0 ? birthday.timelineEvents : [
@@ -648,7 +648,7 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
   }
 
   return (
-    <div className="relative min-h-screen h-[100dvh] max-h-[100dvh] bg-gradient-to-b from-[#fff1f2] via-[#ffe4e6] to-[#fecdd3] text-[#881337] flex flex-col justify-between items-center py-1 px-1.5 sm:py-2 sm:px-4 overflow-hidden select-none">
+    <div className="relative min-h-screen h-[100dvh] max-h-[100dvh] bg-gradient-to-b from-[#fff1f2] via-[#ffe4e6] to-[#fecdd3] text-[#881337] flex flex-col justify-center items-center gap-1.5 py-1.5 px-2 sm:py-3 sm:px-4 overflow-hidden select-none">
       
       {/* Background ambient lighting */}
       <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[450px] h-[450px] bg-rose-400/20 rounded-full blur-[120px] pointer-events-none" />
@@ -730,7 +730,7 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
       </div>
 
       {/* COMPACT SLIDE CONTAINER */}
-      <div className="relative w-full max-w-sm flex-1 flex flex-col justify-center z-20 overflow-hidden my-auto min-h-0">
+      <div className="relative w-full max-w-sm flex-1 flex flex-col justify-center z-20 overflow-hidden min-h-0 my-0 py-0.5">
         <AnimatePresence mode="wait" custom={direction}>
 
           {/* SLIDE 0: INVITATION HERO */}
@@ -823,7 +823,7 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
               </p>
 
               <div className="relative w-full aspect-[16/9] max-h-36 sm:max-h-40 rounded-xl overflow-hidden border border-rose-200/60 mb-2 shadow-lg cursor-pointer bg-gradient-to-b from-rose-950/20 to-black/60 group" onClick={handleBlowCandles}>
-                <Image src="/images/cakee.png" alt="Rose Birthday Cake" fill sizes="(max-width: 640px) 384px, 450px" className="object-cover object-center transition-transform duration-500 group-hover:scale-105" />
+                <Image src="/images/cakee.webp" alt="Rose Birthday Cake" fill sizes="(max-width: 640px) 384px, 450px" className="object-cover object-center transition-transform duration-500 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10 pointer-events-none" />
 
                 {/* Candles positioned directly on top surface of clean cake tier */}
@@ -907,7 +907,7 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
               </p>
 
               <div className="relative w-full aspect-[16/9] max-h-36 sm:max-h-40 rounded-xl overflow-hidden border border-white mb-2 shadow-lg cursor-pointer" onClick={handleOpenGift}>
-                <Image src="/images/rose_gift_box.png" alt="Rose Gift Box" fill sizes="(max-width: 640px) 384px, 450px" className="object-cover" />
+                <Image src="/images/rose_gift_box.webp" alt="Rose Gift Box" fill sizes="(max-width: 640px) 384px, 450px" className="object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
 
                 {!giftOpened ? (

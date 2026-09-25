@@ -27,7 +27,7 @@ const FALLBACK_PRIYA_BIRTHDAY: BirthdayWithDetails = {
   name: 'Nabesha',
   slug: 'nabesha-2026',
   birthdayDate: new Date('2026-10-05T00:00:00Z'),
-  profileImage: '/images/rose_birthday_hero.png',
+  profileImage: '/images/rose_birthday_hero.webp',
   headline: '🌹 A Special Day For An Extraordinary Soul 🌹',
   description: 'Welcome to Nabesha’s 2026 Birthday Celebration! Explore cherished rose memories, milestone stories, blow out the virtual candles, and celebrate with love!',
   personalMessage: 'Dear Nabesha, your smile brightens up the world around you and your warmth inspires everyone. May this year bring you boundless happiness, thrilling adventures, and true magic in every moment!',
@@ -59,7 +59,7 @@ const FALLBACK_PRIYA_BIRTHDAY: BirthdayWithDetails = {
       birthdayId: 'priya-demo-id',
       title: 'Romantic Rose Celebration Toast',
       description: 'Crystal rose champagne, golden lights, and unforgettable laughter.',
-      imageUrl: '/images/rose_memory_1.png',
+      imageUrl: '/images/rose_memory_1.webp',
       displayOrder: 1,
       createdAt: new Date()
     },
@@ -68,7 +68,7 @@ const FALLBACK_PRIYA_BIRTHDAY: BirthdayWithDetails = {
       birthdayId: 'priya-demo-id',
       title: 'Rose Sunset Beach Walk',
       description: 'Golden hour waves, warm breeze, and glowing evening sky.',
-      imageUrl: '/images/rose_memory_2.png',
+      imageUrl: '/images/rose_memory_2.webp',
       displayOrder: 2,
       createdAt: new Date()
     },
@@ -77,7 +77,7 @@ const FALLBACK_PRIYA_BIRTHDAY: BirthdayWithDetails = {
       birthdayId: 'priya-demo-id',
       title: '3-Tier Luxury Rose Cake',
       description: 'Decadent cake adorned with 24k edible gold foil and fresh rose petals.',
-      imageUrl: '/images/cakee.png',
+      imageUrl: '/images/cakee.webp',
       displayOrder: 3,
       createdAt: new Date()
     },
@@ -86,7 +86,7 @@ const FALLBACK_PRIYA_BIRTHDAY: BirthdayWithDetails = {
       birthdayId: 'priya-demo-id',
       title: 'Luxury Satin Ribbon Gift Unboxing',
       description: 'Unboxing secret heartfelt notes and birthday surprise treasures.',
-      imageUrl: '/images/rose_gift_box.png',
+      imageUrl: '/images/rose_gift_box.webp',
       displayOrder: 4,
       createdAt: new Date()
     },
@@ -95,7 +95,7 @@ const FALLBACK_PRIYA_BIRTHDAY: BirthdayWithDetails = {
       birthdayId: 'priya-demo-id',
       title: 'Stargazing Under Open Rose Sky',
       description: 'Counting shooting stars and making big wishes for the bright years ahead.',
-      imageUrl: '/images/rose_birthday_hero.png',
+      imageUrl: '/images/rose_birthday_hero.webp',
       displayOrder: 5,
       createdAt: new Date()
     },
@@ -107,7 +107,7 @@ const FALLBACK_PRIYA_BIRTHDAY: BirthdayWithDetails = {
       year: '2018',
       title: 'A Beautiful Beginning',
       description: 'Stepped into a brand new chapter with big dreams, high energy, and endless curiosity.',
-      imageUrl: '/images/rose_birthday_hero.png',
+      imageUrl: '/images/rose_birthday_hero.webp',
       displayOrder: 1,
       createdAt: new Date()
     },
@@ -117,7 +117,7 @@ const FALLBACK_PRIYA_BIRTHDAY: BirthdayWithDetails = {
       year: '2020',
       title: 'Finding True Passion',
       description: 'Discovered a deep creative calling and built meaningful lifelong friendships.',
-      imageUrl: '/images/rose_memory_1.png',
+      imageUrl: '/images/rose_memory_1.webp',
       displayOrder: 2,
       createdAt: new Date()
     },
@@ -127,7 +127,7 @@ const FALLBACK_PRIYA_BIRTHDAY: BirthdayWithDetails = {
       year: '2022',
       title: 'Major Milestone Achievements',
       description: 'Overcame big challenges with grace, courage, and unwavering perseverance.',
-      imageUrl: '/images/rose_memory_2.png',
+      imageUrl: '/images/rose_memory_2.webp',
       displayOrder: 3,
       createdAt: new Date()
     },
@@ -137,7 +137,7 @@ const FALLBACK_PRIYA_BIRTHDAY: BirthdayWithDetails = {
       year: '2024',
       title: 'Unforgettable Global Journey',
       description: 'Traveled to breath-taking destinations and embraced diverse cultures and perspectives.',
-      imageUrl: '/images/rose_memory_3.png',
+      imageUrl: '/images/rose_memory_3.webp',
       displayOrder: 4,
       createdAt: new Date()
     },
@@ -147,7 +147,7 @@ const FALLBACK_PRIYA_BIRTHDAY: BirthdayWithDetails = {
       year: '2026',
       title: 'A Golden Year Ahead',
       description: 'Ready to shine brighter than ever, surrounded by immense love and limitless possibilities!',
-      imageUrl: '/images/cakee.png',
+      imageUrl: '/images/cakee.webp',
       displayOrder: 5,
       createdAt: new Date()
     }
