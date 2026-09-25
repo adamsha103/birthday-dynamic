@@ -1,0 +1,108 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String     @id @default(cuid())
+  name         String
+  email        String     @unique
+  passwordHash String?
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  birthdays    Birthday[]
+}
+
+model Birthday {
+  id              String          @id @default(cuid())
+  userId          String
+  user            User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name            String
+  slug            String          @unique
+  birthdayDate    DateTime
+  profileImage    String
+  headline        String
+  description     String
+  personalMessage String
+  isPublished     Boolean         @default(true)
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  memories        Memory[]
+  timelineEvents  TimelineEvent[]
+  birthdayWishes  BirthdayWish[]
+  theme           BirthdayTheme?
+  music           Music[]
+
+  @@index([userId])
+  @@index([slug])
+}
+
+model Memory {
+  id           String   @id @default(cuid())
+  birthdayId   String
+  birthday     Birthday @relation(fields: [birthdayId], references: [id], onDelete: Cascade)
+  imageUrl     String
+  title        String
+  description  String
+  displayOrder Int      @default(0)
+  createdAt    DateTime @default(now())
+
+  @@index([birthdayId])
+}
+
+model TimelineEvent {
+  id           String   @id @default(cuid())
+  birthdayId   String
+  birthday     Birthday @relation(fields: [birthdayId], references: [id], onDelete: Cascade)
+  year         String
+  title        String
+  description  String
+  imageUrl     String?
+  displayOrder Int      @default(0)
+  createdAt    DateTime @default(now())
+
+  @@index([birthdayId])
+}
+
+model BirthdayWish {
+  id         String   @id @default(cuid())
+  birthdayId String
+  birthday   Birthday @relation(fields: [birthdayId], references: [id], onDelete: Cascade)
+  name       String
+  message    String
+  isApproved Boolean  @default(true)
+  createdAt  DateTime @default(now())
+
+  @@index([birthdayId])
+}
+
+model BirthdayTheme {
+  id              String   @id @default(cuid())
+  birthdayId      String   @unique
+  birthday        Birthday @relation(fields: [birthdayId], references: [id], onDelete: Cascade)
+  presetName      String   @default("Romantic Pink")
+  primaryColor    String   @default("#EC4899")
+  secondaryColor  String   @default("#F43F5E")
+  accentColor     String   @default("#FBBF24")
+  backgroundColor String   @default("#180816")
+  fontStyle       String   @default("sans")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Music {
+  id         String   @id @default(cuid())
+  birthdayId String
+  birthday   Birthday @relation(fields: [birthdayId], references: [id], onDelete: Cascade)
+  title      String
+  audioUrl   String
+  isActive   Boolean  @default(true)
+  createdAt  DateTime @default(now())
+
+  @@index([birthdayId])
+}
