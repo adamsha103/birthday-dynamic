@@ -139,14 +139,16 @@ export default function BirthdayLetter({
 
         {/* Line 4: Sign-off With Love ❤️ */}
         {lineIndex >= 5 && (
-          <motion.p 
+          <motion.div 
             initial={{ opacity: 0, scale: 0.95 }} 
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.4 }}
-            className="text-xs sm:text-[13px] font-black text-right text-rose-700 pt-1"
+            className="w-full text-center pt-2 pb-0.5"
           >
-            {letterLines[4]}
-          </motion.p>
+            <p className="text-xs sm:text-[13px] font-black text-center text-rose-700 mx-auto">
+              {letterLines[4]}
+            </p>
+          </motion.div>
         )}
 
       </div>
