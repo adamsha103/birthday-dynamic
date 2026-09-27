@@ -500,10 +500,21 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
             ctx.restore()
           }
 
-          // Footer text
-          ctx.fillStyle = '#881337'
-          ctx.font = '600 18px sans-serif'
-          ctx.fillText('Celebrating 3 Wonderful Years Together • 2024–2026', 360, 1145)
+          // Footer watermark card pill (solid rose)
+          ctx.save()
+          ctx.fillStyle = '#e11d48'
+          ctx.beginPath()
+          ctx.roundRect(110, 1120, 500, 42, 21)
+          ctx.fill()
+          ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)'
+          ctx.lineWidth = 1.5
+          ctx.stroke()
+
+          ctx.fillStyle = '#ffffff'
+          ctx.font = 'bold 16px sans-serif'
+          ctx.textAlign = 'center'
+          ctx.fillText('Celebrating 3 Wonderful Years Together • 2024–2026', 360, 1146)
+          ctx.restore()
 
           ctx.restore()
         }
@@ -622,11 +633,21 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
 
           ctx.restore()
 
-          // Outer Footer Watermark
-          ctx.fillStyle = '#881337'
-          ctx.font = '600 18px sans-serif'
+          // Outer Footer Watermark card pill (solid rose)
+          ctx.save()
+          ctx.fillStyle = '#e11d48'
+          ctx.beginPath()
+          ctx.roundRect(110, 1120, 500, 42, 21)
+          ctx.fill()
+          ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)'
+          ctx.lineWidth = 1.5
+          ctx.stroke()
+
+          ctx.fillStyle = '#ffffff'
+          ctx.font = 'bold 16px sans-serif'
           ctx.textAlign = 'center'
-          ctx.fillText('Celebrating 3 Wonderful Years Together • 2024–2026', 360, 1145)
+          ctx.fillText('Celebrating 3 Wonderful Years Together • 2024–2026', 360, 1146)
+          ctx.restore()
 
           ctx.restore()
         }
@@ -749,10 +770,21 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
           ctx.font = 'bold 18px sans-serif'
           ctx.fillText('💖 Beautiful Journey 2024 — 2026 💖', 360, 965)
 
-          // Watermark Footer below card
-          ctx.fillStyle = '#881337'
-          ctx.font = '600 18px sans-serif'
-          ctx.fillText(`Created with Love for ${birthday.name} • 2024–2026 Milestone`, 360, 1145)
+          // Watermark Footer card pill below card (solid rose)
+          ctx.save()
+          ctx.fillStyle = '#e11d48'
+          ctx.beginPath()
+          ctx.roundRect(110, 1120, 500, 42, 21)
+          ctx.fill()
+          ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)'
+          ctx.lineWidth = 1.5
+          ctx.stroke()
+
+          ctx.fillStyle = '#ffffff'
+          ctx.font = 'bold 16px sans-serif'
+          ctx.textAlign = 'center'
+          ctx.fillText(`Created with Love for ${birthday.name} • 2026 Celebration`, 360, 1146)
+          ctx.restore()
 
           ctx.restore()
         }
@@ -1299,9 +1331,11 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
           <span>Prev</span>
         </button>
 
-        <span className="text-[10px] font-black text-rose-900 flex items-center gap-1">
-          <span>Slide {currentSlide + 1} of {totalSlides}</span>
-        </span>
+        <div className="px-3 py-1 rounded-full bg-rose-600 border border-rose-400/80 shadow-sm">
+          <span className="text-[10px] font-black text-white flex items-center gap-1">
+            <span>Slide {currentSlide + 1} of {totalSlides}</span>
+          </span>
+        </div>
 
         {currentSlide < maxUnlockedSlide && currentSlide < totalSlides - 1 ? (
           <button

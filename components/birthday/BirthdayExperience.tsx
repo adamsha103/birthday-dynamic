@@ -48,7 +48,7 @@ export default function BirthdayExperience({ birthday }: BirthdayExperienceProps
   const currentStepNum = step === 'envelope' ? 1 : step === 'letter' ? 2 : 3
 
   return (
-    <div className="relative min-h-[100dvh] w-full bg-transparent text-[#881337] flex flex-col justify-between items-center py-2 px-2.5 sm:py-3 sm:px-4 overflow-y-auto select-none">
+    <div className="relative min-h-[100dvh] h-[100dvh] w-full bg-transparent text-[#881337] flex flex-col justify-between items-center pt-2 pb-2.5 px-2.5 sm:py-3 sm:px-4 overflow-hidden select-none">
       
       {/* Luxury Birthday Wallpaper Background */}
       <div className="fixed inset-0 -z-10 pointer-events-none overflow-hidden select-none">
@@ -137,11 +137,14 @@ export default function BirthdayExperience({ birthday }: BirthdayExperienceProps
         </AnimatePresence>
       </div>
 
-      {/* Footer Branding */}
-      <footer className="w-full max-w-sm shrink-0 z-20 text-center py-1">
-        <span className="text-[10px] font-bold text-rose-800/70">
-          Created with Love for {birthday.name} • 2026 Celebration
-        </span>
+      {/* Footer Branding Card */}
+      <footer className="w-full max-w-sm shrink-0 z-20 text-center pb-2 pt-0.5 px-2">
+        <div className="inline-flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-full bg-rose-600 border border-rose-400/80 shadow-lg">
+          <span className="text-[10px] sm:text-[11px] font-extrabold text-white tracking-wide flex items-center gap-1 whitespace-nowrap drop-shadow-sm">
+            <span>Created with Love for {birthday.name} • 2026 Celebration</span>
+            <span>❤️</span>
+          </span>
+        </div>
       </footer>
 
     </div>

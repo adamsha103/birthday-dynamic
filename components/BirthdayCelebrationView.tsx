@@ -12,10 +12,13 @@ interface BirthdayCelebrationViewProps {
 }
 
 export default function BirthdayCelebrationView({ birthday, themeStyle }: BirthdayCelebrationViewProps) {
+  const safeThemeStyle = { ...themeStyle }
+  delete safeThemeStyle.backgroundColor
+
   return (
     <div
-      className="min-h-screen relative overflow-x-hidden text-white transition-colors duration-500 bg-[#fff1f2]"
-      style={themeStyle}
+      className="min-h-[100dvh] h-[100dvh] w-full relative overflow-hidden text-white"
+      style={safeThemeStyle}
     >
       {/* Luxury Birthday Celebration Wallpaper Background */}
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden select-none">
@@ -36,7 +39,7 @@ export default function BirthdayCelebrationView({ birthday, themeStyle }: Birthd
       <FloatingRosePetals />
 
       {/* Interactive Birthday Envelope & Celebration Experience */}
-      <div className="relative z-10">
+      <div className="relative z-10 w-full h-full min-h-[100dvh] flex flex-col">
         <BirthdayExperience birthday={birthday} />
       </div>
     </div>
