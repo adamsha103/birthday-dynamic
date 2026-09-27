@@ -196,11 +196,12 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
         })
       }
 
-      // Preload profile image, memory images, and birthday cake image
+      // Preload profile image, memory images, birthday cake image, and luxury wallpaper background
       const profileImg = await loadImg(birthday.profileImage || '/images/photo_3.webp')
       const memoryImg1 = await loadImg(memoriesList[0]?.imageUrl || '/images/pho.webp')
       const memoryImg2 = await loadImg('/images/photo_2_1x1.webp')
       const cakeImg = await loadImg('/images/cakee.webp')
+      const luxuryBgImg = await loadImg('/images/luxury_birthday_bg.webp')
 
       // 2. Setup 720x1280 Canvas
       const canvas = document.createElement('canvas')
@@ -352,14 +353,20 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
       const interval = setInterval(() => {
         frame++
 
-        // Background Gradient
-        const grad = ctx.createLinearGradient(0, 0, 0, 1280)
-        grad.addColorStop(0, '#fff1f2')
-        grad.addColorStop(0.4, '#ffe4e6')
-        grad.addColorStop(0.8, '#fecdd3')
-        grad.addColorStop(1, '#fda4af')
-        ctx.fillStyle = grad
-        ctx.fillRect(0, 0, 720, 1280)
+        // Background: Luxury Wallpaper or Fallback Gradient
+        if (luxuryBgImg) {
+          ctx.drawImage(luxuryBgImg, 0, 0, 720, 1280)
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.16)'
+          ctx.fillRect(0, 0, 720, 1280)
+        } else {
+          const grad = ctx.createLinearGradient(0, 0, 0, 1280)
+          grad.addColorStop(0, '#fff1f2')
+          grad.addColorStop(0.4, '#ffe4e6')
+          grad.addColorStop(0.8, '#fecdd3')
+          grad.addColorStop(1, '#fda4af')
+          ctx.fillStyle = grad
+          ctx.fillRect(0, 0, 720, 1280)
+        }
 
         // Floating sparkles across background
         for (let i = 0; i < 20; i++) {
@@ -801,7 +808,20 @@ export default function MobileFirstCelebrationApp({ birthday }: MobileAppProps) 
   }
 
   return (
-    <div className="relative min-h-screen h-[100dvh] max-h-[100dvh] bg-gradient-to-b from-[#fff1f2] via-[#ffe4e6] to-[#fecdd3] text-[#881337] flex flex-col justify-center items-center gap-1.5 py-1.5 px-2 sm:py-3 sm:px-4 overflow-hidden select-none">
+    <div className="relative min-h-screen h-[100dvh] max-h-[100dvh] bg-transparent text-[#881337] flex flex-col justify-center items-center gap-1.5 py-1.5 px-2 sm:py-3 sm:px-4 overflow-hidden select-none">
+      
+      {/* Luxury Birthday Wallpaper Background */}
+      <div className="fixed inset-0 -z-10 pointer-events-none overflow-hidden select-none">
+        <Image
+          src="/images/luxury_birthday_bg.webp"
+          alt="Luxury Birthday Celebration Background"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-pink-100/15 to-rose-950/25 pointer-events-none" />
+      </div>
       
       {/* Background ambient lighting */}
       <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[450px] h-[450px] bg-rose-400/20 rounded-full blur-[120px] pointer-events-none" />

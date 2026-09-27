@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import BirthdayEnvelope from './BirthdayEnvelope'
 import BirthdayLetter from './BirthdayLetter'
@@ -47,7 +48,20 @@ export default function BirthdayExperience({ birthday }: BirthdayExperienceProps
   const currentStepNum = step === 'envelope' ? 1 : step === 'letter' ? 2 : 3
 
   return (
-    <div className="relative min-h-[100dvh] w-full bg-gradient-to-b from-[#fff1f2] via-[#ffe4e6] to-[#fecdd3] text-[#881337] flex flex-col justify-between items-center py-2 px-2.5 sm:py-3 sm:px-4 overflow-y-auto select-none">
+    <div className="relative min-h-[100dvh] w-full bg-transparent text-[#881337] flex flex-col justify-between items-center py-2 px-2.5 sm:py-3 sm:px-4 overflow-y-auto select-none">
+      
+      {/* Luxury Birthday Wallpaper Background */}
+      <div className="fixed inset-0 -z-10 pointer-events-none overflow-hidden select-none">
+        <Image
+          src="/images/luxury_birthday_bg.webp"
+          alt="Luxury Birthday Background"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-pink-100/15 to-rose-950/25 pointer-events-none" />
+      </div>
       
       {/* Ambient background glow */}
       <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[450px] h-[450px] bg-rose-400/20 rounded-full blur-[120px] pointer-events-none" />
